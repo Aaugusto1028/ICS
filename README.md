@@ -39,7 +39,7 @@ El repositorio estará estructurado a base de directorios y contenidos - con su 
 ### Criterio de creación
 Se establecerá la Línea de Base del proyecto luego de recibir la devolución de cada uno de los Trabajos Prácticos y haber hecho las correcciones correspondientes
 ### Identificación
-Las líneas base se identificarán con la siguiente etiqueta: LineaBase_Grupo12_<NumeroLineaBase>
+Las líneas base se identificarán con la siguiente etiqueta: LineaBase_Grupo12_\<NumeroLineaBase>
 
 ### Historial de cambios
 | **Línea Base** | **Fecha**   | **Descripción** |
