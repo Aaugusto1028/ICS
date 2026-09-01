@@ -2,7 +2,7 @@
 
 ## Información General
 Repositorio del Grupo N°12 con los contenidos desarrollados en la materia “Ingeniería y Calidad de Software” en la Universidad Tecnológica Nacional, Facultad Regional Córdoba.
-El repositorio estará estructurado a base de directorios y contenidos - con su nomenclatura "UpperCamelCase" y usando como separador de tópico/entidad el guión bajo ("_"), para un trabajo colaborativo estratégico y organizado.
+El repositorio estará estructurado a base de directorios y contenidos, para un trabajo colaborativo estratégico y organizado.
 
 ## Integrantes
 | Apellido, Nombre                        | Legajo   |
