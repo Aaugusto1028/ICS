@@ -24,7 +24,57 @@ El repositorio estará estructurado a base de directorios y contenidos, para un 
 
 ## Estructura del Repositorio
 ```
-
+ICS/
+├── ClasesGrabadas/
+├── DocumentosDeCatedra/
+├── Examenes/
+│   ├── Finales/
+│   │   └── Resumenes/
+│   └── Parciales/
+│       ├── Parcial1/
+│       │   ├── Ejemplos/
+│       │   └── Resumenes/
+│       └── Parcial2/
+│           ├── Ejemplos/
+│           └── Resumenes/
+├── MaterialBibliografico/
+│   ├── Agilismo/
+│   ├── GestionDeConfiguracionDeSoftware/
+│   ├── IngenieriaDeSoftware/
+│   ├── LeanYKanban/
+│   └── TestDrivenDevelopment/
+├── MaterialPractico/
+├── TrabajosDeInvestigacion/
+└── Unidades/
+    ├── Unidad1/
+    │   ├── Apuntes/
+    │   ├── Practico/
+    │   │   └── TrabajosPracticos/
+    │   ├── Presentaciones/
+    │   └── Teorico/
+    ├── Unidad2/
+    │   ├── Apuntes/
+    │   ├── Practico/
+    │   │   └── TrabajosPracticos/
+    │   │       ├── TP_11_Retrospectiva_Evaluable/
+    │   │       ├── TP_N12_DesignThinking_Evaluable/
+    │   │       └── TP_N7_SCRUM_Evaluable/
+    │   ├── Presentaciones/
+    │   └── Teorico/
+    ├── Unidad3/
+    │   ├── Apuntes/
+    │   ├── Practico/
+    │   │   └── TrabajosPracticos/
+    │   │       └── TP_N4_SCM_Entregable/
+    │   ├── Presentaciones/
+    │   └── Teorico/
+    └── Unidad4/
+        ├── Apuntes/
+        ├── Practico/
+        │   └── TrabajosPracticos/
+        │       └── TP_N6_TDD_Evaluable/
+        ├── Presentaciones/
+        └── Teorico/
 ```
 
 ## Línea Base 
@@ -38,16 +88,33 @@ Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/
 
 ## Items de Configuración 
 ### Reglas de Nombrado y Ubicaciones
-| Ítem                     | Regla de Nombrado            |   Ubicación                | Tipo de Ítem |
-|--------------------------|------------------------------|----------------------------|--------------|
+| Ítem de Configuración      | Regla de Nombrado                                                                 | Ubicación                                                        | Tipo de Ítem |
+|----------------------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------|--------------|
+| Clase Grabada              | ClaseGrabada\_\<Tema\>\_\<Curso\>\_\<Año\>.txt                                    | /ClasesGrabadas/                                                 | No formal    |
+| Documento de Cátedra       | \<TipoDocumento\>\_\<Año\>.pdf                                                    | /DocumentosDeCatedra/                                            | No formal    |
+| Material Bibliográfico     | Bibliografia\_\<Tema\>\_\<NombreLibro\>\_\<ApellidoNombreAutor\>.pdf              | /MaterialBibliografico/\<Tema\>/                                 | No formal   |
+| Material Práctico - Caso   | Caso\_\<NombreCaso\>.pdf                                                          | /MaterialPractico/                                               | No formal    |
+| Material Práctico - Guía   | GuiaDe\<Descripcion\>.pdf                                                         | /MaterialPractico/                                               | No formal    |
+| Presentación de Cátedra    | Presentacion\_\<Tema\>.pdf                                                        | /Unidades/Unidad\<N\>/Presentaciones/                            | No formal    |
+| Trabajo Práctico Evaluable | TP\_N\<Numero\>\_\<Tema\>\_Evaluable/                                             | /Unidades/Unidad\<N\>/Practico/TrabajosPracticos/                | Formal       |
+| Trabajo Práctico Entregable| TP\_N\<Numero\>\_\<Tema\>\_Entregable/                                            | /Unidades/Unidad\<N\>/Practico/TrabajosPracticos/                | Formal       |
+| Trabajo de Investigación   | TIG\_\<Tema\>                                                                     | /TrabajosDeInvestigacion/                                        | Formal       |
+| Resumen de Parcial         | Resumen\_Parcial\<N\>\_\<Descripcion\>                                            | /Examenes/Parciales/Parcial\<N\>/Resumenes/                      | No formal    |
+| Ejemplo de Parcial         | Ejemplo\_Parcial\<N\>\_\<Descripcion\>                                            | /Examenes/Parciales/Parcial\<N\>/Ejemplos/                       | No formal    |
+| Resumen de Final           | Resumen\_Final\_\<Descripcion\>                                                   | /Examenes/Finales/Resumenes/                                     | No formal    |
+| Apunte                     | Apunte\_\<Tema\>                                                                  | /Unidades/Unidad\<N\>/Apuntes/                                   | No formal    |
+| Material Teórico           | Teorico\_\<Tema\>                                                                 | /Unidades/Unidad\<N\>/Teorico/                                   | No formal    |
 ### Glosario
-| Siglas  | Significado                            |
-|---------|----------------------------------------|
-| ICS     | Ingeniería y Calidad de Software       |
-| TIG     | Trabajo de Investigación Grupal        |
-| IC      | Ítem de Configuración                  |
-| TP      | Trabajo Práctico                       |
-| DD/MM/YYYY      | Formato de fecha Dia/Mes/Año                      |
+| Siglas     | Significado                            |
+|------------|----------------------------------------|
+| ICS        | Ingeniería y Calidad de Software       |
+| TIG        | Trabajo de Investigación Grupal        |
+| IC         | Ítem de Configuración                  |
+| TP         | Trabajo Práctico                       |
+| SCM        | Software Configuration Management      |
+| TDD        | Test Driven Development                |
+| DD/MM/YYYY | Formato de fecha Dia/Mes/Año           |
+
 ### Decisiones tomadas por el Grupo
 * Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
 * Si un Trabajo Practico Entregable es transversal a varias unidades, se meterá en la última unidad que abarca.
