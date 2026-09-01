@@ -29,7 +29,7 @@ El repositorio estará estructurado a base de directorios y contenidos, para un 
 
 ## Línea Base 
 ### Criterio de creación
-Definición de Línea Base: La línea base se establecerá una vez que el entregable haya sido presentado, evaluado por el equipo docente y, en caso de corresponder, corregido y aprobado por el equipo de trabajo.
+La línea base se establecerá una vez que el entregable haya sido presentado, evaluado por el equipo docente y, en caso de corresponder, corregido y aprobado por el equipo de trabajo.
 ### Identificación
 Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/MM/YYYY>
 ### Historial de cambios
@@ -47,6 +47,7 @@ Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/
 | TIG     | Trabajo de Investigación Grupal        |
 | IC      | Ítem de Configuración                  |
 | TP      | Trabajo Práctico                       |
+| DD/MM/YYYY      | Formato de fecha Dia/Mes/Año                      |
 ### Decisiones tomadas por el Grupo
 * Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
 * Si un Trabajo Practico Entregable es transversal a varias unidades, se meterá en la última unidad que abarca.
