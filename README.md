@@ -1,13 +1,10 @@
-[README.md](https://github.com/user-attachments/files/31664893/README.md)
 # ICS_4k3_2026_Grupo12
 
 ## Información General
 Repositorio del Grupo N°12 con los contenidos desarrollados en la materia “Ingeniería y Calidad de Software” en la Universidad Tecnológica Nacional, Facultad Regional Córdoba.
-El repositorio estará estructurado a base de directorios y contenidos - con su nomenclatura "PascalCase" y usando como separador de tópico/entidad el guión bajo ("_"), para un trabajo colaborativo estratégico y organizado.
-
+El repositorio estará estructurado a base de directorios y contenidos, para un trabajo colaborativo estratégico y organizado.
 
 ## Integrantes
-
 | Apellido, Nombre                        | Legajo   |
 |-----------------------------------------|----------|
 | Vicentini, Maximiliano                  | 90426    |
@@ -25,51 +22,32 @@ El repositorio estará estructurado a base de directorios y contenidos - con su 
 | Quarato, Francisco Ignacio              | 55001    |
 | Stura Murua, Fermín                     | 82336    |
 
-
-
 ## Estructura del Repositorio
-
 ```
-
 
 ```
 
 ## Línea Base 
-  
 ### Criterio de creación
-Se establecerá la Línea de Base del proyecto luego de recibir la devolución de cada uno de los Trabajos Prácticos y haber hecho las correcciones correspondientes
+Definición de Línea Base: La línea base se establecerá una vez que el entregable haya sido presentado, evaluado por el equipo docente y, en caso de corresponder, corregido y aprobado por el equipo de trabajo.
 ### Identificación
-Las líneas base se identificarán con la siguiente etiqueta: LineaBase_Grupo12_\<NumeroLineaBase>
-
+Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/MM/YYYY>
 ### Historial de cambios
 | **Línea Base** | **Fecha**   | **Descripción** |
 |----------------|-------------|-----------------|
 
 ## Items de Configuración 
-
+### Reglas de Nombrado y Ubicaciones
+| Ítem                     | Regla de Nombrado            |   Ubicación                | Tipo de Ítem |
+|--------------------------|------------------------------|----------------------------|--------------|
 ### Glosario
-
-| Siglas  | Significado                              |
-|---------|-----------------------------------------|
+| Siglas  | Significado                            |
+|---------|----------------------------------------|
 | ICS     | Ingeniería y Calidad de Software       |
 | TIG     | Trabajo de Investigación Grupal        |
 | IC      | Ítem de Configuración                  |
 | TP      | Trabajo Práctico                       |
-
 ### Decisiones tomadas por el Grupo
-
-* Si un Trabajo Práctico es transversal a varias unidades, se meterá en la última unidad que abarca
-* Cada Trabajo Práctico tendrá que ser nombrado con su tipo (evaluable / no evaluable)
-
-
-### Reglas de Nombrado y Ubicaciones
-
-| Ítem                                    | Regla de Nombrado                                                         |   Ubicación | Tipo de Ítem |
-|:----------------------------------------|:--------------------------------------------------------------------------|:------------|:-------------|
- 
-
-
-
-
-
-
+* Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
+* Si un Trabajo Practico Entregable es transversal a varias unidades, se meterá en la última unidad que abarca.
+* Cada Trabajo Practico Entregable tendrá que ser nombrado con su tipo (Evaluable / NoEvaluable)
