@@ -56,6 +56,11 @@ ICS/
     │   ├── Apuntes/
     │   ├── Practico/
     │   │   └── TrabajosPracticos/
+    │   │       ├── TP_N10_KANBAN_Evaluable/
+    │   │       │   ├── Entrega/
+    │   │       │   ├── Enunciado/
+    │   │       │   ├── Produccion/
+    │   │       │   └── Retroalimentacion/
     │   │       ├── TP_N11_Retrospectiva_Evaluable/
     │   │       │   ├── Entrega/
     │   │       │   ├── Enunciado/
