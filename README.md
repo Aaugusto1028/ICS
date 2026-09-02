@@ -139,6 +139,7 @@ Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/
 * Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
 * Si un Trabajo Practico Entregable es transversal a varias unidades, se meterá en la última unidad que abarca.
 * Cada Trabajo Practico Entregable tendrá que ser nombrado con su tipo (Evaluable / NoEvaluable)
+* Evitar el uso de tildes o caracteres especiales en nombres de archivos y directorios para garantizar la compatibilidad con herramientas de consola, scripts y sistemas de codificación.
 
 ## Estructura interna de Trabajos Prácticos
 
