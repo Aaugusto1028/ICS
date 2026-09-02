@@ -57,8 +57,20 @@ ICS/
     │   ├── Practico/
     │   │   └── TrabajosPracticos/
     │   │       ├── TP_N11_Retrospectiva_Evaluable/
+    │   │       │   ├── Entrega/
+    │   │       │   ├── Enunciado/
+    │   │       │   ├── Produccion/
+    │   │       │   └── Retroalimentacion/
     │   │       ├── TP_N12_DesignThinking_Evaluable/
+    │   │       │   ├── Entrega/
+    │   │       │   ├── Enunciado/
+    │   │       │   ├── Produccion/
+    │   │       │   └── Retroalimentacion/
     │   │       └── TP_N7_SCRUM_Evaluable/
+    │   │           ├── Entrega/
+    │   │           ├── Enunciado/
+    │   │           ├── Produccion/
+    │   │           └── Retroalimentacion/
     │   ├── Presentaciones/
     │   └── Teorico/
     ├── Unidad3/
@@ -66,6 +78,10 @@ ICS/
     │   ├── Practico/
     │   │   └── TrabajosPracticos/
     │   │       └── TP_N4_SCM_Entregable/
+    │   │           ├── Entrega/
+    │   │           ├── Enunciado/
+    │   │           ├── Produccion/
+    │   │           └── Retroalimentacion/
     │   ├── Presentaciones/
     │   └── Teorico/
     └── Unidad4/
@@ -73,6 +89,10 @@ ICS/
         ├── Practico/
         │   └── TrabajosPracticos/
         │       └── TP_N6_TDD_Evaluable/
+        │           ├── Entrega/
+        │           ├── Enunciado/
+        │           ├── Produccion/
+        │           └── Retroalimentacion/
         ├── Presentaciones/
         └── Teorico/
 ```
