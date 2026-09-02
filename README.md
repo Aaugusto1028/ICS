@@ -108,22 +108,26 @@ Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/
 
 ## Items de Configuración 
 ### Reglas de Nombrado y Ubicaciones
-| Ítem de Configuración      | Regla de Nombrado                                                                 | Ubicación                                                        | Tipo de Ítem |
-|----------------------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------|--------------|
-| Clase Grabada              | ClaseGrabada\_\<Tema\>\_\<Curso\>\_\<Año\>.txt                                    | /ClasesGrabadas/                                                 | No formal    |
-| Documento de Cátedra       | \<TipoDocumento\>\_\<Año\>.pdf                                                    | /DocumentosDeCatedra/                                            | No formal    |
-| Material Bibliográfico     | Bibliografia\_\<Tema\>\_\<NombreLibro\>\_\<ApellidoNombreAutor\>.pdf              | /MaterialBibliografico/\<Tema\>/                                 | No formal   |
-| Material Práctico - Caso   | Caso\_\<NombreCaso\>.pdf                                                          | /MaterialPractico/                                               | No formal    |
-| Material Práctico - Guía   | GuiaDe\<Descripcion\>.pdf                                                         | /MaterialPractico/                                               | No formal    |
-| Presentación de Cátedra    | Presentacion\_\<Tema\>.pdf                                                        | /Unidades/Unidad\<N\>/Presentaciones/                            | No formal    |
-| Trabajo Práctico Evaluable | TP\_N\<Numero\>\_\<Tema\>\_Evaluable/                                             | /Unidades/Unidad\<N\>/Practico/TrabajosPracticos/                | Formal       |
-| Trabajo Práctico Entregable| TP\_N\<Numero\>\_\<Tema\>\_Entregable/                                            | /Unidades/Unidad\<N\>/Practico/TrabajosPracticos/                | Formal       |
-| Trabajo de Investigación   | TIG\_\<Tema\>                                                                     | /TrabajosDeInvestigacion/                                        | Formal       |
-| Resumen de Parcial         | Resumen\_Parcial\<N\>\_\<Descripcion\>                                            | /Examenes/Parciales/Parcial\<N\>/Resumenes/                      | No formal    |
-| Ejemplo de Parcial         | Ejemplo\_Parcial\<N\>\_\<Descripcion\>                                            | /Examenes/Parciales/Parcial\<N\>/Ejemplos/                       | No formal    |
-| Resumen de Final           | Resumen\_Final\_\<Descripcion\>                                                   | /Examenes/Finales/Resumenes/                                     | No formal    |
-| Apunte                     | Apunte\_\<Tema\>                                                                  | /Unidades/Unidad\<N\>/Apuntes/                                   | No formal    |
-| Material Teórico           | Teorico\_\<Tema\>                                                                 | /Unidades/Unidad\<N\>/Teorico/                                   | No formal    |
+| Nombre del ítem de configuración | Regla de nombrado | Ubicación física | Tipo de ítem |
+|---|---|---|---|
+| Programa de la asignatura | `Programa_<Año>.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
+| Material Bibliográfico | `Bibliografia_<Tema>_<NombreLibro>_<Autores>.pdf` | `/ICS/MaterialBibliografico/<Tema>/` | Material de Referencia |
+| Lineamientos y Plan de Configuración | `README.md` | `/ICS/` | Gestión |
+| Cronograma | `Cronograma_<Año>.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
+| Entregable de Trabajos Prácticos | `TP_N<Número>_<Tema><Evaluable/NoEvaluable>.pdf` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/` | Entregable |
+| Trabajos de Investigación | `TrabajoDeInvestigacion_TP_N<Número>_<Tema>.pdf` | `/ICS/TrabajosDeInvestigacion/` | Entregable |
+| Presentaciones de clase | `Presentacion_<Tema>.pdf` | `/ICS/Unidades/Unidad<Número>/Presentaciones/` | Material de Referencia |
+| Apuntes de alumnos | `Apunte_<TemaDeClase>_<FechaDeClase>_<Autor>.pdf` | `/ICS/Unidades/Unidad<Número>/Apuntes/` | Apunte de clase |
+| Presentación de la asignatura | `Presentacion_<Año>.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
+| Clases grabadas | `ClaseGrabada_<Tema>_<Curso>_<Año>.txt` | `/ICS/ClasesGrabadas/` | Material de Referencia |
+| Lineamientos para trabajos de investigación grupal | `LineamientosParaTrabajosDeInvestigaciónGrupal.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
+| Guía de Trabajos Prácticos Evaluables | `GuiaDeTrabajosPracticosEvaluables.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
+| Guía de Ejercicios Prácticos Resueltos | `GuiaDeEjerciciosPracticosResueltos.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
+| Información de parciales | `InformacionDeParciales.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
+| Ejemplos de parciales | `EjemploParcial<Numero>_<Fecha>.pdf` | `/ICS/Examenes/Parciales/Parcial<numero>/Ejemplos` | Material de Referencia |
+| Resumen de parcial | `ResumenParcial<Numero>_<Autor>_<Año>.pdf` | `/ICS/Examenes/Parciales/Parcial<numero>/Resumenes` | Material de Referencia |
+| Resumen de final | `ResumenFinal<Numero>_<Autor>_<Año>.pdf` | `/ICS/Examenes/Finales/Resumenes` | Material de Referencia |
+| Casos de estudio | `Caso_<Nombre>.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
 ### Glosario
 | Siglas     | Significado                            |
 |------------|----------------------------------------|
