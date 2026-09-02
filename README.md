@@ -56,7 +56,7 @@ ICS/
     │   ├── Apuntes/
     │   ├── Practico/
     │   │   └── TrabajosPracticos/
-    │   │       ├── TP_11_Retrospectiva_Evaluable/
+    │   │       ├── TP_N11_Retrospectiva_Evaluable/
     │   │       ├── TP_N12_DesignThinking_Evaluable/
     │   │       └── TP_N7_SCRUM_Evaluable/
     │   ├── Presentaciones/
