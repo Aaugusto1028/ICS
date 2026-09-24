@@ -85,10 +85,11 @@ En `Examenes/`, `Finales/` y `Resumenes/` son carpetas hermanas: la primera rese
 ### Criterio de creación
 La línea base se establecerá una vez que el entregable haya sido presentado, evaluado por el equipo docente y, en caso de corresponder, corregido y aprobado por el equipo de trabajo.
 ### Identificación
-Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/MM/YYYY>
+Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD-MM-YYYY>`. Se usan guiones en la fecha para evitar caracteres especiales en el nombre del tag.
 ### Historial de cambios
 | **Línea Base** | **Fecha**   | **Descripción** |
 |----------------|-------------|-----------------|
+| `LineaBase_G12_23-09-2026` | 23/09/2026 | Entrega TP SCM. Estructura del repositorio actualizada según el feedback docente. |
 
 ## Items de Configuración 
 ### Reglas de Nombrado y Ubicaciones
