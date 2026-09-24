@@ -29,14 +29,14 @@ ICS/
 ├── DocumentosDeCatedra/
 ├── Examenes/
 │   ├── Finales/
-│   │   └── Resumenes/
-│   └── Parciales/
-│       ├── Parcial1/
-│       │   ├── Ejemplos/
-│       │   └── Resumenes/
-│       └── Parcial2/
-│           ├── Ejemplos/
-│           └── Resumenes/
+│   ├── Parciales/
+│   │   ├── Parcial1/
+│   │   │   └── Ejemplos/
+│   │   └── Parcial2/
+│   │       └── Ejemplos/
+│   └── Resumenes/
+│       ├── Finales/
+│       └── Parcial<N>/
 ├── MaterialBibliografico/
 │   ├── Agilismo/
 │   ├── GestionDeConfiguracionDeSoftware/
@@ -46,61 +46,40 @@ ICS/
 ├── MaterialPractico/
 ├── TrabajosDeInvestigacion/
 └── Unidades/
-    ├── Unidad1/
-    │   ├── Apuntes/
-    │   ├── Practico/
-    │   │   └── TrabajosPracticos/
-    │   ├── Presentaciones/
-    │   └── Teorico/
-    ├── Unidad2/
-    │   ├── Apuntes/
-    │   ├── Practico/
-    │   │   └── TrabajosPracticos/
-    │   │       ├── TP_N10_KANBAN_Evaluable/
-    │   │       │   ├── Entrega/
-    │   │       │   ├── Enunciado/
-    │   │       │   ├── Produccion/
-    │   │       │   └── Retroalimentacion/
-    │   │       ├── TP_N11_Retrospectiva_Evaluable/
-    │   │       │   ├── Entrega/
-    │   │       │   ├── Enunciado/
-    │   │       │   ├── Produccion/
-    │   │       │   └── Retroalimentacion/
-    │   │       ├── TP_N12_DesignThinking_Evaluable/
-    │   │       │   ├── Entrega/
-    │   │       │   ├── Enunciado/
-    │   │       │   ├── Produccion/
-    │   │       │   └── Retroalimentacion/
-    │   │       └── TP_N7_SCRUM_Evaluable/
-    │   │           ├── Entrega/
-    │   │           ├── Enunciado/
-    │   │           ├── Produccion/
-    │   │           └── Retroalimentacion/
-    │   ├── Presentaciones/
-    │   └── Teorico/
-    ├── Unidad3/
-    │   ├── Apuntes/
-    │   ├── Practico/
-    │   │   └── TrabajosPracticos/
-    │   │       └── TP_N4_SCM_Entregable/
-    │   │           ├── Entrega/
-    │   │           ├── Enunciado/
-    │   │           ├── Produccion/
-    │   │           └── Retroalimentacion/
-    │   ├── Presentaciones/
-    │   └── Teorico/
-    └── Unidad4/
+    └── Unidad<N>/
         ├── Apuntes/
-        ├── Practico/
-        │   └── TrabajosPracticos/
-        │       └── TP_N6_TDD_Evaluable/
-        │           ├── Entrega/
+        ├── Practico/                 (solo si hay material práctico de la unidad)
+        │   └── TrabajosPracticos/    (solo si hay trabajos prácticos)
+        │       └── TP_N<N>_<Tema>_<Tipo>/
         │           ├── Enunciado/
         │           ├── Produccion/
+        │           ├── Entrega/
         │           └── Retroalimentacion/
         ├── Presentaciones/
         └── Teorico/
 ```
+
+La estructura de cada unidad se crea según el material efectivamente disponible y las actividades asignadas por la cátedra; no se mantienen carpetas vacías como reserva. Por eso, una unidad que todavía no tenga prácticos (por ejemplo, Unidad1) no necesita `Practico/` ni `TrabajosPracticos/`. Cuando se publique un nuevo práctico, se crea su carpeta dentro de la unidad correspondiente y se aplica la estructura interna definida más abajo. Si un trabajo abarca varias unidades, se ubica en la última unidad que abarca. No se inventa ni se completa material faltante: se incorpora cuando la cátedra lo provee.
+
+### Prácticos definidos por la guía
+La guía `MaterialPractico/GuiaDeTrabajosPracticosEvaluables.pdf` es la fuente para el listado, tipo y unidad de cada práctico. Los que requieren carpeta de entrega son:
+
+| Práctico | Tema | Unidad indicada en la guía | Estado |
+|---|---|---|---|
+| TP 4 | SCM - Herramientas de SCM | Unidad 3 | Evaluable |
+| TP 5 | SCM - Uso del Repositorio | Unidad 3 | Evaluable |
+| TP 6 | TDD | Unidad 4 | Evaluable |
+| TP 7 | SCRUM - Ejercicio de aplicación | Unidad 2 | Evaluable |
+| TP 10 | KANBAN - Ejercicio de aplicación | Unidad 4 | Evaluable |
+| TP 11 | SCRUM - Dinámica de Retrospectiva | Unidad 2 | Evaluable |
+| TP 12 | Design Thinking - Publicidad de Instagram | Unidad 2 | Evaluable |
+| TP 13 | SCRUM - Planificación de Release y de Sprint | Unidad 3 | Evaluable, recuperatorio |
+
+Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega ni nota, según la guía; por eso no tienen carpeta propia dentro de `TrabajosPracticos/`. Se conservan sus consignas en la guía compartida. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
+
+`MaterialPractico/` reúne recursos de consulta compartidos que apoyan actividades prácticas (guías, casos y lineamientos generales). Por ese carácter transversal, los lineamientos para los trabajos de investigación grupal se conservan allí; las entregas de esos trabajos se organizan por separado en `TrabajosDeInvestigacion/`.
+
+En `Examenes/`, `Finales/` y `Resumenes/` son carpetas hermanas: la primera reserva los exámenes finales y la segunda contiene los resúmenes, separados por tipo de examen. Los ejemplos de parciales permanecen en `Parciales/Parcial<N>/Ejemplos/`.
 
 ## Línea Base 
 ### Criterio de creación
@@ -119,19 +98,19 @@ Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/
 | Material Bibliográfico | `Bibliografia_<Tema>_<NombreLibro>_<Autores>.pdf` | `/ICS/MaterialBibliografico/<Tema>/` | Material de Referencia |
 | Lineamientos y Plan de Configuración | `README.md` | `/ICS/` | Gestión |
 | Cronograma | `Cronograma_<Año>.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
-| Entregable de Trabajos Prácticos | `TP_N<Número>_<Tema><Evaluable/NoEvaluable>.pdf` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/` | Entregable |
-| Trabajos de Investigación | `TrabajoDeInvestigacion_TP_N<Número>_<Tema>.pdf` | `/ICS/TrabajosDeInvestigacion/` | Entregable |
+| Carpeta de Trabajo Práctico | `TP_N<Número>_<Tema>_<Evaluable/NoEvaluable>/` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/` | Trabajo práctico |
+| Trabajos de Investigación | `TrabajoDeInvestigacion_TP_N<Número>_<Tema>_<Grupo>.<ext>` | `/ICS/TrabajosDeInvestigacion/` | Entregable |
 | Presentaciones de clase | `Presentacion_<Tema>.pdf` | `/ICS/Unidades/Unidad<Número>/Presentaciones/` | Material de Referencia |
 | Apuntes de alumnos | `Apunte_<TemaDeClase>_<FechaDeClase>_<Autor>.pdf` | `/ICS/Unidades/Unidad<Número>/Apuntes/` | Apunte de clase |
 | Presentación de la asignatura | `Presentacion_<Año>.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
-| Clases grabadas | `ClaseGrabada_<Tema>_<Curso>_<Año>.txt` | `/ICS/ClasesGrabadas/` | Material de Referencia |
+| Clases grabadas | `ClaseGrabada_<Tema>_<Curso>_<Año>[_<Numero>].txt` | `/ICS/ClasesGrabadas/` | Material de Referencia |
 | Lineamientos para trabajos de investigación grupal | `LineamientosParaTrabajosDeInvestigaciónGrupal.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
 | Guía de Trabajos Prácticos Evaluables | `GuiaDeTrabajosPracticosEvaluables.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
 | Guía de Ejercicios Prácticos Resueltos | `GuiaDeEjerciciosPracticosResueltos.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
 | Información de parciales | `InformacionDeParciales.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
-| Ejemplos de parciales | `EjemploParcial<Numero>_<Fecha>.pdf` | `/ICS/Examenes/Parciales/Parcial<numero>/Ejemplos` | Material de Referencia |
-| Resumen de parcial | `ResumenParcial<Numero>_<Autor>_<Año>.pdf` | `/ICS/Examenes/Parciales/Parcial<numero>/Resumenes` | Material de Referencia |
-| Resumen de final | `ResumenFinal<Numero>_<Autor>_<Año>.pdf` | `/ICS/Examenes/Finales/Resumenes` | Material de Referencia |
+| Ejemplos de parciales | `EjemploParcial<Numero>_<Fecha>.pdf` | `/ICS/Examenes/Parciales/Parcial<Numero>/Ejemplos/` | Material de Referencia |
+| Resumen de parcial | `ResumenParcial<Numero>_<Autor>_<Año>.pdf` | `/ICS/Examenes/Resumenes/Parcial<Numero>/` | Material de Referencia |
+| Resumen de final | `ResumenFinal_<Autor>_<Año>.pdf` | `/ICS/Examenes/Resumenes/Finales/` | Material de Referencia |
 | Casos de estudio | `Caso_<Nombre>.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
 ### Glosario
 | Siglas     | Significado                            |
@@ -146,9 +125,13 @@ Las líneas base se identificarán con la siguiente etiqueta: LineaBase_G12_<DD/
 
 ### Decisiones tomadas por el Grupo
 * Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
-* Si un Trabajo Practico Entregable es transversal a varias unidades, se meterá en la última unidad que abarca.
-* Cada Trabajo Practico Entregable tendrá que ser nombrado con su tipo (Evaluable / NoEvaluable)
+* Las carpetas de unidades y prácticos se crean cuando existe material o una actividad asignada; no se generan estructuras vacías para unidades sin prácticos.
+* Si un Trabajo Práctico abarca varias unidades, se ubica en la última unidad que abarca.
+* Cada carpeta de Trabajo Práctico se identifica con su número, tema y tipo indicado en la consigna (por ejemplo, Evaluable, NoEvaluable o Entregable).
 * Evitar el uso de tildes o caracteres especiales en nombres de archivos y directorios para garantizar la compatibilidad con herramientas de consola, scripts y sistemas de codificación.
+
+### Clases grabadas
+Se mantiene un archivo `.txt` por cada clase grabada y cada archivo contiene el título de la clase y un único enlace al video. Si hay más de una grabación del mismo tema, curso y año, se agrega un número correlativo al nombre (`_1`, `_2`, etc.) para evitar colisiones. No se agrupan varios enlaces en un mismo archivo.
 
 ## Estructura interna de Trabajos Prácticos
 
