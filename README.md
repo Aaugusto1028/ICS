@@ -90,6 +90,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | **Línea Base** | **Fecha**   | **Descripción** |
 |----------------|-------------|-----------------|
 | `LineaBase_G12_23-09-2026` | 23/09/2026 | Entrega TP SCM. Estructura del repositorio actualizada según el feedback docente. |
+| `LineaBase_G12_25-09-2026` | 25/09/2026 | Entrega del TP SCRUM. Enunciado, producción y entrega incorporados al repositorio. |
 
 ## Items de Configuración 
 ### Reglas de Nombrado y Ubicaciones
