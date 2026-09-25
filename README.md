@@ -99,7 +99,11 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Material Bibliográfico | `Bibliografia_<Tema>_<NombreLibro>_<Autores>.pdf` | `/ICS/MaterialBibliografico/<Tema>/` | Material de Referencia |
 | Lineamientos y Plan de Configuración | `README.md` | `/ICS/` | Gestión |
 | Cronograma | `Cronograma_<Año>.pdf` | `/ICS/DocumentosDeCatedra/` | Cátedra |
-| Carpeta de Trabajo Práctico | `TP_N<Número>_<Tema>_<Evaluable/NoEvaluable>/` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/` | Trabajo práctico |
+| Carpeta de Trabajo Práctico | `TP_N<Número>_<Tema>_<Tipo>/` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/` | Trabajo práctico |
+| Enunciados de Trabajo Práctico | `Enunciado_TP_N<Número>.pdf` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Enunciado/` | Consigna |
+| Material de producción de Trabajo Práctico | `Produccion_TP_N<Número>[_<Descripción>][_<Grupo>].<ext>` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Produccion/` | Material de trabajo |
+| Entregables de Trabajo Práctico | `TP_N<Número>_<Grupo>.<ext>` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Entrega/` | Entregable |
+| Retroalimentación de Trabajo Práctico | `Retroalimentacion_TP_N<Número>_<Grupo>[_<Descripción>].<ext>` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Retroalimentacion/` | Cátedra |
 | Trabajos de Investigación | `TrabajoDeInvestigacion_TP_N<Número>_<Tema>_<Grupo>.<ext>` | `/ICS/TrabajosDeInvestigacion/` | Entregable |
 | Presentaciones de clase | `Presentacion_<Tema>.pdf` | `/ICS/Unidades/Unidad<Número>/Presentaciones/` | Material de Referencia |
 | Apuntes de alumnos | `Apunte_<TemaDeClase>_<FechaDeClase>_<Autor>.pdf` | `/ICS/Unidades/Unidad<Número>/Apuntes/` | Apunte de clase |
@@ -113,6 +117,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Resumen de parcial | `ResumenParcial<Numero>_<Autor>_<Año>.pdf` | `/ICS/Examenes/Resumenes/Parcial<Numero>/` | Material de Referencia |
 | Resumen de final | `ResumenFinal_<Autor>_<Año>.pdf` | `/ICS/Examenes/Resumenes/Finales/` | Material de Referencia |
 | Casos de estudio | `Caso_<Nombre>.pdf` | `/ICS/MaterialPractico/` | Material de Referencia |
+
 ### Glosario
 | Siglas     | Significado                            |
 |------------|----------------------------------------|
@@ -128,7 +133,8 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 * Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
 * Las carpetas de unidades y prácticos se crean cuando existe material o una actividad asignada; no se generan estructuras vacías para unidades sin prácticos.
 * Si un Trabajo Práctico abarca varias unidades, se ubica en la última unidad que abarca.
-* Cada carpeta de Trabajo Práctico se identifica con su número, tema y tipo indicado en la consigna (por ejemplo, Evaluable, NoEvaluable o Entregable).
+* Cada carpeta de Trabajo Práctico se identifica con su número, tema y tipo indicado en la consigna (por ejemplo, Evaluable, EvaluableRecuperatorio, NoEvaluable o Entregable).
+* Los archivos entregados de un Trabajo Práctico se nombran `TP_N<Número>_<Grupo>.<ext>`, de modo que el nombre identifique tanto el TP como el grupo, como en `TP_N4_Grupo12.pdf`.
 * Evitar el uso de tildes o caracteres especiales en nombres de archivos y directorios para garantizar la compatibilidad con herramientas de consola, scripts y sistemas de codificación.
 
 ### Clases grabadas
