@@ -1,0 +1,38 @@
+{
+  "name": "inscripcion-actividades-backend",
+  "version": "1.0.0",
+  "description": "API para inscribirse a actividades del parque (Tirolesa, Safari, Palestra, Jardinería)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "probar-mail": "node src/probarMail.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16",
+    "qrcode": "^1.5.4",
+    "sql.js": "^1.14.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/server.js",
+      "!src/probarMail.js",
+      "!src/config.js"
+    ]
+  }
+}
