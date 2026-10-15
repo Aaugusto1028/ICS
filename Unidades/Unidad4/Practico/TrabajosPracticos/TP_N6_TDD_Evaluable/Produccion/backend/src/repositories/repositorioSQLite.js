@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS inscripciones (
   actividad_id       TEXT NOT NULL REFERENCES actividades(id),
   fecha              TEXT NOT NULL,        -- AAAA-MM-DD
   horario            TEXT NOT NULL,        -- HH:MM
-  cantidad_personas  INTEGER NOT NULL CHECK (cantidad_personas BETWEEN 1 AND 10),
+  cantidad_personas  INTEGER NOT NULL CHECK (cantidad_personas >= 1),  -- sin máximo: lo limita el cupo
   email              TEXT NOT NULL,
   acepta_terminos    INTEGER NOT NULL CHECK (acepta_terminos = 1),
   terminos_aceptados TEXT NOT NULL,        -- copia del texto aceptado, como constancia
@@ -128,6 +128,17 @@ class RepositorioSQLite {
     );
   }
 
+  /** DNIs de la lista que ya están inscriptos en algún turno de esa fecha y hora (cualquier actividad). */
+  dnisInscriptosEnHorario(fecha, horario, dnis) {
+    if (!dnis.length) return [];
+    return this.#filas(
+      `SELECT DISTINCT p.dni FROM participantes p
+         JOIN inscripciones i ON i.id = p.inscripcion_id
+        WHERE i.fecha = ? AND i.horario = ? AND p.dni IN (${dnis.map(() => '?').join(', ')})`,
+      [fecha, horario, ...dnis]
+    ).map((f) => f.dni);
+  }
+
   buscarPorCodigo(codigo) {
     const [fila] = this.#filas('SELECT * FROM inscripciones WHERE codigo = ?', [codigo]);
     return fila ? this.#aInscripcion(fila) : null;
@@ -152,6 +163,7 @@ class RepositorioSQLite {
   // ------------------------------------------------------------------ privados
 
   #migrar() {
+    this.#quitarMaximoDePersonas();
     this.#db.run('PRAGMA foreign_keys = ON;');
     this.#db.exec(ESQUEMA);
     // Sincroniza el catálogo (si cambia un cupo u horario en el código, se actualiza la tabla)
@@ -164,6 +176,24 @@ class RepositorioSQLite {
           [a.id, a.nombre, a.requiereTalla ? 1 : 0, a.cupoPorHorario, a.horarios.join(',')]
         );
       }
+    });
+  }
+
+  /**
+   * Las bases creadas antes de la respuesta del PO tienen `CHECK (cantidad_personas BETWEEN 1 AND 10)`.
+   * SQLite no permite cambiar un CHECK, así que se recrea la tabla conservando los datos
+   * (procedimiento recomendado por SQLite: claves foráneas apagadas, copiar, borrar y renombrar).
+   */
+  #quitarMaximoDePersonas() {
+    const sql = this.#valor("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'inscripciones'");
+    if (!sql || !/BETWEEN\s+1\s+AND\s+10/i.test(sql)) return;
+    const nuevaTabla = ESQUEMA.match(/CREATE TABLE IF NOT EXISTS inscripciones \(([\s\S]*?)\n\);/)[1];
+    this.#db.run('PRAGMA foreign_keys = OFF;');
+    this.#transaccion(() => {
+      this.#db.exec(`CREATE TABLE inscripciones_nueva (${nuevaTabla}\n);`);
+      this.#db.exec('INSERT INTO inscripciones_nueva SELECT * FROM inscripciones;');
+      this.#db.exec('DROP TABLE inscripciones;');
+      this.#db.exec('ALTER TABLE inscripciones_nueva RENAME TO inscripciones;');
     });
   }
 

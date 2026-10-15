@@ -4,8 +4,9 @@
  * Devuelve un objeto { campo: mensaje } con las mismas claves que usa la API.
  */
 
-export const MAX_PERSONAS = 10;
-const REGEX_DNI = /^\d{7,8}$/;
+// No hay máximo de personas por inscripción (lo limita el cupo libre del turno, FAQ 31 del PO).
+const REGEX_DNI = /^\d{6,8}$/; // DNI de 6 a 8 dígitos
+export const EDAD_MAXIMA = 100;
 const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export function participanteVacio() {
@@ -27,8 +28,8 @@ export function validarFormulario(form, actividad) {
   if (!form.horario) errores.horario = 'Elegí un horario disponible.';
 
   const cantidad = Number(form.cantidadPersonas);
-  if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > MAX_PERSONAS) {
-    errores.cantidadPersonas = `Indicá entre 1 y ${MAX_PERSONAS} personas.`;
+  if (!Number.isInteger(cantidad) || cantidad < 1) {
+    errores.cantidadPersonas = 'Indicá al menos 1 persona.';
   }
 
   const dnis = new Set();
@@ -37,13 +38,17 @@ export function validarFormulario(form, actividad) {
     if (p.nombre.trim().length < 2) errores[c('nombre')] = 'Ingresá el nombre.';
 
     const dni = String(p.dni).trim();
-    if (!REGEX_DNI.test(dni)) errores[c('dni')] = '7 u 8 números, sin puntos.';
+    if (!REGEX_DNI.test(dni)) errores[c('dni')] = 'De 6 a 8 números, sin puntos.';
     else if (dnis.has(dni)) errores[c('dni')] = 'DNI repetido.';
     else dnis.add(dni);
 
     const edad = Number(p.edad);
-    if (p.edad === '' || !Number.isInteger(edad) || edad < 0 || edad > 120) {
+    if (p.edad === '' || !Number.isInteger(edad) || edad < 0) {
       errores[c('edad')] = 'Edad inválida.';
+    } else if (edad > EDAD_MAXIMA) {
+      errores[c('edad')] = `Máximo ${EDAD_MAXIMA} años.`;
+    } else if (actividad?.edadMinima && edad < actividad.edadMinima) {
+      errores[c('edad')] = `Mínimo ${actividad.edadMinima} años.`;
     }
     if (actividad?.requiereTalla && !actividad.tallas.includes(p.talla)) {
       errores[c('talla')] = 'Elegí la talla.';
@@ -72,6 +77,11 @@ export function armarSolicitud(form, actividad) {
     aceptaTerminos: form.aceptaTerminos,
     email: form.email.trim(),
   };
+}
+
+/** Texto de la edad permitida de una actividad (FAQ 15 del PO). */
+export function textoEdad(actividad) {
+  return actividad?.edadMinima ? `Desde ${actividad.edadMinima} años` : 'Todas las edades';
 }
 
 /** Fecha de hoy en hora local, formato AAAA-MM-DD (para el min del input date). */

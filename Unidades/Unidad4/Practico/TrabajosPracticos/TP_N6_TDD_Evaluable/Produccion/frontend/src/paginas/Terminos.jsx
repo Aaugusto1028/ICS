@@ -44,7 +44,7 @@ export default function Terminos() {
 
         {actividad && (
           <article className="seccion documento">
-            <p className="texto-suave version">Versión {actividad.versionTerminos}</p>
+            <p className="texto-suave version">Redactados el {actividad.versionTerminos.split('-').reverse().join('/')} · pendientes de validación por el PO</p>
 
             <h2>Condiciones de {actividad.nombre}</h2>
             <ol>

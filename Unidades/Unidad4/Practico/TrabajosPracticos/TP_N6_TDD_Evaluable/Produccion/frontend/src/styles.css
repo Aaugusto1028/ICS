@@ -1,25 +1,29 @@
 /* =========================================================================
-   Paleta: verde clarito + blanco (valores documentados en DECISIONES_TECNICAS.md)
+   Paleta definida por el PO (FAQ 3): https://coolors.co/palette/386641-6a994e-a7c957-f2e8cf-bc4749
+     #386641 verde oscuro · #6A994E verde · #A7C957 verde lima · #F2E8CF crema · #BC4749 rojo
+   Los tonos intermedios (100, 200, 50) son mezclas de esos colores con blanco.
+   Valores y contrastes documentados en DECISIONES_TECNICAS.md §9.
    ========================================================================= */
 :root {
   --blanco: rgb(255, 255, 255);
-  --verde-50: rgb(242, 250, 244);   /* fondo de página */
-  --verde-100: rgb(232, 246, 236);  /* rellenos suaves, hover */
-  --verde-200: rgb(214, 239, 221);  /* bordes */
-  --verde-300: rgb(168, 221, 182);  /* borde seleccionado / acentos claros */
-  --verde-400: rgb(120, 196, 140);  /* anillo de foco */
-  --verde-600: rgb(46, 125, 70);    /* color principal: botones, números, links */
-  --verde-700: rgb(37, 102, 57);    /* hover del botón principal */
-  --texto: rgb(31, 51, 38);         /* texto principal */
-  --texto-suave: rgb(90, 112, 98);  /* texto secundario */
-  --error: rgb(185, 56, 47);
-  --error-fondo: rgb(253, 238, 236);
+  --crema: rgb(242, 232, 207);      /* #F2E8CF: encabezado */
+  --verde-50: rgb(249, 245, 234);   /* crema claro (#F2E8CF + blanco): fondo de página */
+  --verde-100: rgb(237, 244, 221);  /* #A7C957 al 20 %: rellenos suaves, hover */
+  --verde-200: rgb(220, 233, 188);  /* #A7C957 al 40 %: bordes */
+  --verde-300: rgb(167, 201, 87);   /* #A7C957: borde en hover / acentos claros */
+  --verde-400: rgb(106, 153, 78);   /* #6A994E: anillo de foco */
+  --verde-600: rgb(56, 102, 65);    /* #386641: color principal: botones, números, links */
+  --verde-700: rgb(44, 82, 52);     /* #386641 más oscuro: hover del botón principal */
+  --texto: rgb(31, 51, 38);         /* texto principal (verde casi negro) */
+  --texto-suave: rgb(84, 104, 88);  /* texto secundario */
+  --error: rgb(188, 71, 73);        /* #BC4749 */
+  --error-fondo: rgb(252, 241, 241);
   --aviso-fondo: rgb(255, 248, 225);
-  --aviso-borde: rgb(240, 214, 140);
+  --aviso-borde: rgb(225, 205, 150);
 
   --radio: 14px;
-  --sombra: 0 1px 2px rgba(31, 51, 38, 0.05), 0 6px 20px rgba(46, 125, 70, 0.07);
-  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sombra: 0 1px 2px rgba(31, 51, 38, 0.05), 0 6px 20px rgba(56, 102, 65, 0.07);
+  font-family: 'Lato', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--texto);
   background: var(--verde-50);
 }
@@ -33,7 +37,7 @@ button, input, select { font: inherit; color: inherit; }
 .encabezado {
   background:
     radial-gradient(circle at 85% 20%, var(--verde-200) 0, transparent 45%),
-    linear-gradient(180deg, var(--verde-100), var(--verde-50));
+    linear-gradient(180deg, var(--crema), var(--verde-50));
   border-bottom: 1px solid var(--verde-200);
 }
 .encabezado-contenido { max-width: 1100px; margin: 0 auto; padding: 28px 20px 32px; }
@@ -96,7 +100,8 @@ button, input, select { font: inherit; color: inherit; }
 .campo input:focus, .campo select:focus { outline: none; border-color: var(--verde-600); box-shadow: 0 0 0 3px var(--verde-100); }
 .campo input:disabled { background: var(--verde-50); cursor: not-allowed; }
 .campo.con-error input, .campo.con-error select { border-color: var(--error); }
-.campo-fecha { max-width: 240px; }
+.grilla-fechas { display: grid; grid-template-columns: repeat(2, minmax(0, 220px)); gap: 10px; }
+.chip-fecha .cupos { text-align: center; }
 .campo-email { margin-top: 18px; }
 .error-campo { color: var(--error); font-size: 0.85rem; font-weight: 600; margin: 6px 0 0; }
 
@@ -109,7 +114,7 @@ button, input, select { font: inherit; color: inherit; }
 .chip-horario .hora { font-weight: 800; font-size: 1.05rem; }
 .chip-horario .cupos { font-size: 0.8rem; color: var(--texto-suave); }
 .chip-horario:hover:not(:disabled) { border-color: var(--verde-300); background: var(--verde-50); }
-.chip-horario.seleccionado { border-color: var(--verde-600); background: var(--verde-600); color: var(--blanco); }
+.chip-horario.seleccionado, .chip-horario.seleccionado:hover:not(:disabled) { border-color: var(--verde-600); background: var(--verde-600); color: var(--blanco); }
 .chip-horario.seleccionado .cupos { color: var(--verde-100); }
 .chip-horario:disabled { cursor: not-allowed; opacity: 0.55; background: var(--verde-50); text-decoration: line-through; }
 .chip-horario:disabled .cupos { text-decoration: none; }
@@ -159,7 +164,7 @@ button, input, select { font: inherit; color: inherit; }
 }
 .alerta {
   margin: 14px 0 0; padding: 10px 12px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
-  background: var(--error-fondo); color: var(--error); border: 1px solid rgba(185, 56, 47, 0.3);
+  background: var(--error-fondo); color: var(--error); border: 1px solid rgba(188, 71, 73, 0.3);
 }
 
 /* ---------------------------------------------------------------- Resumen */
@@ -184,6 +189,11 @@ dd.ok { color: var(--verde-600); }
 .boton-primario:hover:not(:disabled) { background: var(--verde-700); }
 .boton-primario:active:not(:disabled) { transform: translateY(1px); }
 .boton-primario:disabled { opacity: 0.7; cursor: progress; }
+
+/* Botón al final del formulario, para seguir el recorrido vertical (además del del resumen) */
+.cierre-formulario { display: flex; flex-direction: column; gap: 4px; }
+.cierre-formulario .boton-primario { margin-top: 0; }
+.cierre-formulario .alerta { margin: 0 0 8px; }
 .boton-secundario {
   margin-top: 22px; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 800;
   background: var(--blanco); color: var(--verde-700); border: 2px solid var(--verde-300);
@@ -200,7 +210,8 @@ dd.ok { color: var(--verde-600); }
   background: var(--verde-100); color: var(--verde-600);
 }
 .confirmacion h2 { margin: 0; font-size: 1.5rem; }
-.qr { display: block; margin: 20px auto 6px; border: 8px solid var(--verde-50); border-radius: 12px; }
+/* El PNG ya trae su borde blanco (zona de silencio) y viene del tamaño justo: 4 px por cuadradito */
+.qr { display: block; max-width: 100%; height: auto; margin: 20px auto 6px; border-radius: 12px; background: var(--blanco); }
 .codigo { font-family: ui-monospace, Consolas, monospace; font-size: 1.15rem; letter-spacing: 2px; font-weight: 700; margin: 0 0 16px; }
 .detalle { text-align: left; }
 
@@ -239,6 +250,8 @@ code { background: var(--verde-100); padding: 1px 6px; border-radius: 6px; font-
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
   .resumen { position: static; }
+  /* En pantallas angostas el resumen (con su botón) ya queda al final: no repetir el botón */
+  .cierre-formulario { display: none; }
 }
 @media (max-width: 560px) {
   .encabezado-contenido, .layout { padding-left: 16px; padding-right: 16px; }
@@ -261,8 +274,8 @@ code { background: var(--verde-100); padding: 1px 6px; border-radius: 6px; font-
 /* ---------------------------------------------------------------- Pestaña Inscripciones */
 .contenedor-panel { max-width: 1100px; margin: 0 auto; padding: 20px 20px 60px; display: flex; flex-direction: column; gap: 18px; }
 .barra-actualizacion { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: var(--texto-suave); font-size: 0.9rem; }
-.punto-vivo { width: 9px; height: 9px; border-radius: 50%; background: var(--verde-600); box-shadow: 0 0 0 0 rgba(46, 125, 70, 0.5); animation: latido 2s infinite; }
-@keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(46, 125, 70, 0.45); } 70% { box-shadow: 0 0 0 8px rgba(46, 125, 70, 0); } 100% { box-shadow: 0 0 0 0 rgba(46, 125, 70, 0); } }
+.punto-vivo { width: 9px; height: 9px; border-radius: 50%; background: var(--verde-600); box-shadow: 0 0 0 0 rgba(56, 102, 65, 0.5); animation: latido 2s infinite; }
+@keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(56, 102, 65, 0.45); } 70% { box-shadow: 0 0 0 8px rgba(56, 102, 65, 0); } 100% { box-shadow: 0 0 0 0 rgba(56, 102, 65, 0); } }
 @media (prefers-reduced-motion: reduce) { .punto-vivo { animation: none; } }
 
 .grilla-resumen { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
@@ -293,7 +306,7 @@ code { background: var(--verde-100); padding: 1px 6px; border-radius: 6px; font-
 .turno .hora { font-weight: 800; }
 .barra { height: 8px; border-radius: 999px; background: var(--verde-200); overflow: hidden; }
 .barra span { display: block; height: 100%; background: var(--verde-600); border-radius: 999px; transition: width 0.4s ease; }
-.turno.lleno { background: var(--error-fondo); border-color: rgba(185, 56, 47, 0.3); }
+.turno.lleno { background: var(--error-fondo); border-color: rgba(188, 71, 73, 0.3); }
 .turno.lleno .barra span { background: var(--error); }
 
 .titulo-lista { display: flex; align-items: center; gap: 8px; }
@@ -307,14 +320,14 @@ code { background: var(--verde-100); padding: 1px 6px; border-radius: 6px; font-
 .tabla-inscripciones th { text-align: left; background: var(--verde-100); padding: 9px 12px; white-space: nowrap; }
 .tabla-inscripciones td { padding: 9px 12px; border-top: 1px solid var(--verde-200); vertical-align: top; }
 .tabla-inscripciones td.centrado { text-align: center; }
-.tabla-inscripciones tr.fila-nueva td { background: rgb(246, 252, 247); }
+.tabla-inscripciones tr.fila-nueva td { background: var(--verde-100); }
 .lista-participantes-tabla { margin: 0; padding: 0; list-style: none; }
 .codigo-link { font-family: ui-monospace, Consolas, monospace; font-weight: 700; color: var(--verde-700); }
 
 .insignia { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .insignia-ok { background: var(--verde-100); color: var(--verde-700); border: 1px solid var(--verde-300); }
 .insignia-aviso { background: var(--aviso-fondo); color: rgb(120, 86, 10); border: 1px solid var(--aviso-borde); }
-.insignia-error { background: var(--error-fondo); color: var(--error); border: 1px solid rgba(185, 56, 47, 0.3); }
+.insignia-error { background: var(--error-fondo); color: var(--error); border: 1px solid rgba(188, 71, 73, 0.3); }
 .insignia-neutra { background: var(--verde-50); color: var(--texto-suave); border: 1px solid var(--verde-200); }
 .insignia-nueva { margin-left: 6px; background: var(--verde-600); color: var(--blanco); }
 

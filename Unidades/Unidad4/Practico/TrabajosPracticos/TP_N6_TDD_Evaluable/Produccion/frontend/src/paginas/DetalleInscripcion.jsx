@@ -42,9 +42,9 @@ export default function DetalleInscripcion() {
             <h2>{inscripcion.actividad.nombre}</h2>
             {recienCreada && <EstadoEmail inscripcion={inscripcion} />}
 
-            <img className="qr" src={inscripcion.qr} alt={`Código QR de la inscripción ${inscripcion.codigo}`} width="220" height="220" />
+            <img className="qr" src={inscripcion.qr} alt={`Código QR de la inscripción ${inscripcion.codigo}`} />
             <p className="codigo">{inscripcion.codigo}</p>
-            <p className="texto-suave nota">Escaneá el QR con el celular para ver el detalle de la inscripción.</p>
+            <p className="texto-suave nota">Escaneá el QR con la cámara del celular (o con Google Lens) para ver el detalle de la inscripción.</p>
 
             <dl className="detalle">
               <div><dt>Fecha</dt><dd>{formatearFechaLarga(inscripcion.fecha, { conAnio: true })}</dd></div>

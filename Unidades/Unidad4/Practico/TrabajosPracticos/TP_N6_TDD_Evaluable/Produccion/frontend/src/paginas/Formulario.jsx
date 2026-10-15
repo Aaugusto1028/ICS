@@ -1,7 +1,7 @@
 import { cloneElement, useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { obtenerActividades, obtenerDisponibilidad, crearInscripcion } from '../api.js';
-import { MAX_PERSONAS, validarFormulario, ajustarParticipantes, armarSolicitud, hoyISO } from '../validacion.js';
+import { obtenerActividades, obtenerFechas, obtenerDisponibilidad, crearInscripcion } from '../api.js';
+import { validarFormulario, ajustarParticipantes, armarSolicitud, textoEdad, EDAD_MAXIMA } from '../validacion.js';
 import { useFormulario } from '../estado.jsx';
 import { formatearFechaLarga } from '../fechas.js';
 import { IconoActividad } from '../Iconos.jsx';
@@ -13,6 +13,7 @@ export default function Formulario() {
   const location = useLocation();
 
   const [actividades, setActividades] = useState([]);
+  const [fechas, setFechas] = useState([]);
   const [cargandoActividades, setCargandoActividades] = useState(true);
   const [disponibilidad, setDisponibilidad] = useState(null);
   const [cargandoHorarios, setCargandoHorarios] = useState(false);
@@ -23,6 +24,8 @@ export default function Formulario() {
 
   const actividad = actividades.find((a) => a.id === form.actividadId) || null;
   const turno = disponibilidad?.horarios.find((h) => h.horario === form.horario) || null;
+  // Sin máximo por inscripción: el tope es el cupo libre del turno elegido (o el cupo total si todavía no eligió).
+  const maxPersonas = Math.max(1, turno ? turno.cuposRestantes : actividad?.cupoPorHorario || 1);
 
   const erroresCliente = useMemo(() => validarFormulario(form, actividad), [form, actividad]);
   const errores = intentoEnviar ? { ...erroresCliente, ...erroresServidor } : erroresServidor;
@@ -33,6 +36,13 @@ export default function Formulario() {
       .then(setActividades)
       .catch((e) => setErrorGeneral(e.message))
       .finally(() => setCargandoActividades(false));
+    obtenerFechas()
+      .then((lista) => {
+        setFechas(lista);
+        // Si quedó elegida una fecha que ya no se puede elegir (por ejemplo, de ayer), se descarta.
+        setForm((f) => (f.fecha && !lista.some((x) => x.fecha === f.fecha && x.parqueAbierto) ? { ...f, fecha: '', horario: '' } : f));
+      })
+      .catch((e) => setErrorGeneral(e.message));
   }, []);
 
   // Al volver de la página de términos, llevar al visitante a esa sección
@@ -68,7 +78,7 @@ export default function Formulario() {
   };
 
   const cambiarCantidad = (n) => {
-    const cantidad = Math.min(MAX_PERSONAS, Math.max(1, n));
+    const cantidad = Math.min(maxPersonas, Math.max(1, n));
     actualizar({ cantidadPersonas: cantidad, participantes: ajustarParticipantes(form.participantes, cantidad) });
   };
 
@@ -141,6 +151,7 @@ export default function Formulario() {
                     <span className="desc-actividad">{a.descripcion}</span>
                     <span className="etiquetas">
                       <span className="etiqueta">{a.cupoPorHorario} lugares por turno</span>
+                      <span className="etiqueta">{textoEdad(a)}</span>
                       {a.requiereTalla && <span className="etiqueta etiqueta-talla">Requiere talla</span>}
                     </span>
                   </button>
@@ -151,17 +162,28 @@ export default function Formulario() {
 
           {/* 2. Fecha y horario */}
           <Seccion numero="2" titulo="Fecha y horario" error={errorDe('horario') || errorDe('fecha')}>
-            <label className="campo campo-fecha">
-              <span>Fecha</span>
-              <input
-                type="date"
-                min={hoyISO()}
-                value={form.fecha}
-                disabled={!actividad}
-                aria-invalid={!!errorDe('fecha')}
-                onChange={(e) => actualizar({ fecha: e.target.value, horario: '' })}
-              />
-            </label>
+            {/* Solo hoy y mañana: la inscripción se habilita 24 hs antes de cada turno.
+                Los días en que el parque cierra se muestran deshabilitados. */}
+            <div className="grilla-fechas" role="radiogroup" aria-label="Fecha">
+              {fechas.map((f, i) => (
+                <button
+                  type="button"
+                  role="radio"
+                  key={f.fecha}
+                  aria-checked={form.fecha === f.fecha}
+                  aria-invalid={!!errorDe('fecha')}
+                  disabled={!actividad || !f.parqueAbierto}
+                  className={`chip-horario chip-fecha ${form.fecha === f.fecha ? 'seleccionado' : ''}`}
+                  onClick={() => actualizar({ fecha: f.fecha, horario: '' })}
+                >
+                  <span className="hora">{i === 0 ? 'Hoy' : 'Mañana'}</span>
+                  <span className="cupos">{f.parqueAbierto ? formatearFechaLarga(f.fecha) : `${formatearFechaLarga(f.fecha)} · Parque cerrado`}</span>
+                </button>
+              ))}
+            </div>
+            <p className="texto-suave nota">
+              La inscripción a cada turno se habilita 24 hs antes y cierra 15 minutos antes de que empiece. El parque cierra los lunes, el 25/12 y el 01/01.
+            </p>
 
             {!actividad && <p className="texto-suave">Primero elegí una actividad.</p>}
             {actividad && !form.fecha && <p className="texto-suave">Elegí una fecha para ver los horarios.</p>}
@@ -174,7 +196,16 @@ export default function Formulario() {
             {disponibilidad && !cargandoHorarios && disponibilidad.parqueAbierto && (
               <div className="grilla-horarios" role="radiogroup" aria-label="Horario">
                 {disponibilidad.horarios.map((h) => {
-                  const motivo = h.cuposRestantes === 0 ? 'Sin cupo' : !h.disponible ? 'No disponible' : null;
+                  const motivo =
+                    h.inscripcion === 'cerrada'
+                      ? 'Cerrada'
+                      : h.inscripcion === 'no_habilitada'
+                        ? 'Todavía no'
+                        : h.cuposRestantes === 0
+                          ? 'Sin cupo'
+                          : !h.disponible
+                            ? 'No disponible'
+                            : null;
                   return (
                     <button
                       type="button"
@@ -204,7 +235,7 @@ export default function Formulario() {
                   −
                 </button>
                 <output aria-live="polite">{form.cantidadPersonas}</output>
-                <button type="button" aria-label="Agregar una persona" onClick={() => cambiarCantidad(form.cantidadPersonas + 1)} disabled={form.cantidadPersonas >= MAX_PERSONAS}>
+                <button type="button" aria-label="Agregar una persona" onClick={() => cambiarCantidad(form.cantidadPersonas + 1)} disabled={form.cantidadPersonas >= maxPersonas}>
                   +
                 </button>
               </div>
@@ -225,7 +256,7 @@ export default function Formulario() {
                       <input value={p.dni} inputMode="numeric" maxLength={8} placeholder="Sin puntos" onChange={(e) => actualizarParticipante(i, 'dni', e.target.value.replace(/\D/g, ''))} />
                     </Campo>
                     <Campo label="Edad" error={errorDe(`participantes[${i}].edad`)}>
-                      <input type="number" min="0" max="120" inputMode="numeric" value={p.edad} onChange={(e) => actualizarParticipante(i, 'edad', e.target.value)} />
+                      <input type="number" min={actividad?.edadMinima || 0} max={EDAD_MAXIMA} inputMode="numeric" value={p.edad} onChange={(e) => actualizarParticipante(i, 'edad', e.target.value)} />
                     </Campo>
                     {actividad?.requiereTalla && (
                       <Campo label="Talla" error={errorDe(`participantes[${i}].talla`)}>
@@ -241,6 +272,7 @@ export default function Formulario() {
                 </fieldset>
               ))}
             </div>
+            {actividad?.edadMinima > 0 && <p className="texto-suave nota">{actividad.nombre} es para personas de {actividad.edadMinima} años o más.</p>}
             {actividad?.requiereTalla && <p className="texto-suave nota">{actividad.motivoTalla}</p>}
           </Seccion>
 
@@ -282,6 +314,14 @@ export default function Formulario() {
               {errorDe('aceptaTerminos') && <p className="error-campo">{errorDe('aceptaTerminos')}</p>}
             </div>
           </Seccion>
+
+          {/* Mismo botón que el del resumen, al final del recorrido vertical */}
+          <div className="cierre-formulario">
+            {errorGeneral && <div className="alerta" role="alert">{errorGeneral}</div>}
+            <button type="submit" className="boton-primario" disabled={enviando}>
+              {enviando ? 'Registrando…' : 'Registrar inscripción'}
+            </button>
+          </div>
         </div>
 
         {/* Resumen lateral */}

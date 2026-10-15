@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const QRCode = require('qrcode');
+const { qrComoDataUrl } = require('./qr');
 const { ErrorDominio } = require('./errors');
 
 /**
@@ -22,6 +22,11 @@ function crearApp({ inscripcionService }) {
     res.json(inscripcionService.obtenerActividad(req.params.id));
   });
 
+  // Días que se pueden elegir (hoy y mañana), marcando los que el parque está cerrado
+  app.get('/api/fechas', (_req, res) => {
+    res.json(inscripcionService.fechasDisponibles());
+  });
+
   app.get('/api/actividades/:id/disponibilidad', (req, res) => {
     res.json(inscripcionService.disponibilidad(req.params.id, req.query.fecha));
   });
@@ -29,7 +34,7 @@ function crearApp({ inscripcionService }) {
   app.post('/api/inscripciones', async (req, res, next) => {
     try {
       const inscripcion = await inscripcionService.inscribir(req.body);
-      const qr = await QRCode.toDataURL(inscripcion.contenidoQR, { width: 240, margin: 1 });
+      const qr = await qrComoDataUrl(inscripcion.contenidoQR);
       res.status(201).json({ ...inscripcion, qr });
     } catch (e) {
       next(e);
@@ -43,7 +48,7 @@ function crearApp({ inscripcionService }) {
   app.get('/api/inscripciones/:codigo', async (req, res, next) => {
     try {
       const inscripcion = inscripcionService.obtenerInscripcion(req.params.codigo);
-      const qr = await QRCode.toDataURL(inscripcion.contenidoQR, { width: 240, margin: 1 });
+      const qr = await qrComoDataUrl(inscripcion.contenidoQR);
       res.json({ ...inscripcion, qr });
     } catch (e) {
       next(e);

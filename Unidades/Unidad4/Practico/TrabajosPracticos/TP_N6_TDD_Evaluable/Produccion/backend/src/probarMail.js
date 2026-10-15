@@ -21,12 +21,12 @@ async function main() {
   const inscripcion = {
     codigo: 'INS-PRUEBA',
     fecha: '2026-10-17',
-    horario: '10:30',
+    horario: '10:00',
     cantidadPersonas: 1,
     email: destino,
     participantes: [{ nombre: 'Visitante de Prueba', dni: '40123456', edad: 25, talla: 'M' }],
     contenidoQR:
-      'ECOHARMONY PARK - MAIL DE PRUEBA\nCódigo: INS-PRUEBA\nActividad: Tirolesa\nFecha: Sábado 17/10/2026\nHorario: 10:30 hs',
+      'ECOHARMONY PARK INS-PRUEBA\nTirolesa Sabado 17/10/2026 10:00 hs\n1. Visitante de Prueba DNI 40123456',
   };
   const r = await mailer.enviarConfirmacion({ inscripcion, actividad: buscarActividad('tirolesa') });
   console.log(modo === 'smtp' ? `Listo, mail enviado (id ${r.messageId}). Revisá la bandeja de entrada y el spam.` : 'Sin SMTP configurado: se guardó en backend/outbox/.');
