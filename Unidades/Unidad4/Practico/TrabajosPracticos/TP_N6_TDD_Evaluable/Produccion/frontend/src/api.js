@@ -24,6 +24,9 @@ async function pedir(ruta, opciones) {
 
 export const obtenerActividades = () => pedir('/actividades');
 
+/** Días que se pueden elegir (hoy y mañana) y si el parque abre cada uno. */
+export const obtenerFechas = () => pedir('/fechas');
+
 export const obtenerDisponibilidad = (actividadId, fecha) =>
   pedir(`/actividades/${encodeURIComponent(actividadId)}/disponibilidad?fecha=${encodeURIComponent(fecha)}`);
 

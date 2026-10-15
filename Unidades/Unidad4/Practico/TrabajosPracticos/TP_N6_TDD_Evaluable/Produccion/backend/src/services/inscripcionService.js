@@ -8,17 +8,20 @@ const {
   textoTerminos,
 } = require('../domain/actividades');
 const {
+  HORAS_ANTICIPACION_MAXIMA,
+  MINUTOS_CIERRE_INSCRIPCION,
   parsearFecha,
   esHoraValida,
-  aMinutos,
-  formatearFecha,
   parqueAbiertoEnFecha,
   parqueAbiertoEnHora,
+  estadoVentanaInscripcion,
+  fechasInscribibles,
 } = require('../domain/parque');
 const { ErrorValidacion, ErrorNoEncontrado, ErrorNoDisponible, ErrorSinCupo } = require('../errors');
 
-const MAX_PERSONAS_POR_INSCRIPCION = 10;
-const REGEX_DNI = /^\d{7,8}$/;
+// No hay máximo de personas por inscripción (FAQ 31): el único límite es el cupo libre del turno.
+const REGEX_DNI = /^\d{6,8}$/; // DNI de 6 a 8 dígitos (los más viejos tienen 6)
+const EDAD_MAXIMA = 100;
 const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const DIAS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -34,27 +37,26 @@ function fechaLegible(fecha) {
   return `${DIAS[d.getDay()]} ${dia}/${m}/${a}`;
 }
 
+/** Quita tildes y ñ ('Jardinería' -> 'Jardineria'): algunos lectores de QR muestran mal los acentos. */
+function sinTildes(texto) {
+  return String(texto).normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 /**
  * Texto que se codifica en el QR. Es texto plano para que cualquier lector de QR
- * del celular muestre el detalle completo sin necesitar internet ni una app propia.
+ * del celular muestre el detalle sin necesitar internet ni una app propia.
+ * Va lo justo para el control en el ingreso (código, turno y nombre + DNI de cada persona):
+ * cuanto más corto el texto, menos cuadraditos tiene el QR y más fácil lo lee la cámara.
+ * El detalle completo (edad, talla, email) está en el mail y en la página de la inscripción.
  */
 function armarContenidoQR(inscripcion, actividad, urlDetalle) {
   const lineas = [
-    'ECOHARMONY PARK - INSCRIPCIÓN CONFIRMADA',
-    `Código: ${inscripcion.codigo}`,
-    `Actividad: ${actividad.nombre}`,
-    `Fecha: ${fechaLegible(inscripcion.fecha)}`,
-    `Horario: ${inscripcion.horario} hs`,
-    `Personas (${inscripcion.cantidadPersonas}):`,
-    ...inscripcion.participantes.map(
-      (p, i) =>
-        `${i + 1}. ${p.nombre} - DNI ${p.dni} - ${p.edad} años` + (p.talla ? ` - Talla ${p.talla}` : '')
-    ),
-    `Email: ${inscripcion.email}`,
-    'Términos y condiciones: aceptados',
+    `ECOHARMONY PARK ${inscripcion.codigo}`,
+    `${actividad.nombre} ${fechaLegible(inscripcion.fecha)} ${inscripcion.horario} hs`,
+    ...inscripcion.participantes.map((p, i) => `${i + 1}. ${p.nombre} DNI ${p.dni}`),
   ];
-  if (urlDetalle) lineas.push(`Ver detalle: ${urlDetalle}`);
-  return lineas.join('\n');
+  if (urlDetalle) lineas.push(urlDetalle);
+  return sinTildes(lineas.join('\n'));
 }
 
 class InscripcionService {
@@ -75,13 +77,14 @@ class InscripcionService {
   }
 
   listarActividades() {
-    return ACTIVIDADES.map(({ id, nombre, descripcion, requiereTalla, motivoTalla, cupoPorHorario, horarios, terminos }) => ({
+    return ACTIVIDADES.map(({ id, nombre, descripcion, requiereTalla, motivoTalla, cupoPorHorario, edadMinima, horarios, terminos }) => ({
       id,
       nombre,
       descripcion,
       requiereTalla,
       motivoTalla: motivoTalla || null,
       cupoPorHorario,
+      edadMinima,
       horarios,
       terminos,
       tallas: requiereTalla ? TALLAS_VALIDAS : [],
@@ -115,19 +118,31 @@ class InscripcionService {
       .map((i) => this.#respuesta(i, buscarActividad(i.actividadId)));
   }
 
+  /**
+   * Días que se pueden elegir en el formulario: hoy y mañana (la inscripción abre
+   * 24 hs antes de cada turno). Los días en que el parque cierra vienen marcados
+   * para que el front los muestre deshabilitados (FAQ 2).
+   */
+  fechasDisponibles() {
+    return fechasInscribibles(this.reloj());
+  }
+
   disponibilidad(actividadId, fecha) {
     const actividad = this.#obtenerActividad(actividadId);
     if (!parsearFecha(fecha)) {
       throw new ErrorValidacion([{ campo: 'fecha', mensaje: 'La fecha debe tener formato AAAA-MM-DD.' }]);
     }
     const parqueAbierto = parqueAbiertoEnFecha(fecha);
+    const ahora = this.reloj();
     const horarios = actividad.horarios.map((horario) => {
       const cuposRestantes = Math.max(
         0,
         actividad.cupoPorHorario - this.repositorio.cuposOcupados(actividad.id, fecha, horario)
       );
-      const disponible = parqueAbierto && !this.#yaPaso(fecha, horario) && cuposRestantes > 0;
-      return { horario, cupoTotal: actividad.cupoPorHorario, cuposRestantes, disponible };
+      // inscripcion: 'abierta' | 'cerrada' (faltan 15 min o menos) | 'no_habilitada' (faltan más de 24 hs)
+      const inscripcion = estadoVentanaInscripcion(fecha, horario, ahora);
+      const disponible = parqueAbierto && inscripcion === 'abierta' && cuposRestantes > 0;
+      return { horario, cupoTotal: actividad.cupoPorHorario, cuposRestantes, inscripcion, disponible };
     });
     return { actividadId: actividad.id, fecha, parqueAbierto, horarios };
   }
@@ -142,7 +157,10 @@ class InscripcionService {
     // 2) Que el parque y la actividad estén disponibles en ese momento
     this.#validarDisponibilidad(actividad, solicitud.fecha, solicitud.horario);
 
-    // 3) Cupo. Se verifica y se guarda sin "await" en medio: en Node eso es atómico
+    // 3) Que nadie del grupo esté inscripto en otro turno del mismo horario (FAQ 29)
+    this.#validarSinSuperposicion(solicitud);
+
+    // 4) Cupo. Se verifica y se guarda sin "await" en medio: en Node eso es atómico
     //    y evita que dos pedidos simultáneos se lleven el mismo último lugar.
     const ocupados = this.repositorio.cuposOcupados(actividad.id, solicitud.fecha, solicitud.horario);
     const restantes = actividad.cupoPorHorario - ocupados;
@@ -178,7 +196,7 @@ class InscripcionService {
     inscripcion.contenidoQR = armarContenidoQR(inscripcion, actividad, this.#urlDetalle(codigo));
     this.repositorio.guardar(inscripcion);
 
-    // 4) Email de confirmación con QR. Si falla, la reserva NO se pierde: queda registrado el motivo.
+    // 5) Email de confirmación con QR. Si falla, la reserva NO se pierde: queda registrado el motivo.
     try {
       const { modo } = (await this.mailer.enviarConfirmacion({ inscripcion, actividad, urlDetalle: this.#urlDetalle(codigo) })) || {};
       inscripcion.emailEstado = modo === 'archivo' ? 'guardado_en_archivo' : 'enviado';
@@ -203,6 +221,8 @@ class InscripcionService {
     const { terminosAceptados, ...resto } = inscripcion;
     return {
       ...resto,
+      // Se rearma siempre, así las inscripciones viejas también usan el QR corto
+      contenidoQR: armarContenidoQR(inscripcion, actividad, this.#urlDetalle(inscripcion.codigo)),
       actividad: { id: actividad.id, nombre: actividad.nombre, requiereTalla: actividad.requiereTalla },
       emailEnviado: inscripcion.emailEstado === 'enviado',
       urlDetalle: this.#urlDetalle(inscripcion.codigo),
@@ -215,12 +235,20 @@ class InscripcionService {
     return actividad;
   }
 
-  #yaPaso(fecha, horario) {
-    const ahora = this.reloj();
-    const hoy = formatearFecha(ahora);
-    if (fecha < hoy) return true;
-    if (fecha > hoy) return false;
-    return aMinutos(horario) <= ahora.getHours() * 60 + ahora.getMinutes();
+  /** Rechaza si algún DNI del grupo ya tiene una inscripción en la misma fecha y hora, en cualquier actividad. */
+  #validarSinSuperposicion(s) {
+    const dnis = s.participantes.map((p) => String(p.dni).trim());
+    const yaInscriptos = new Set(this.repositorio.dnisInscriptosEnHorario(s.fecha, s.horario, dnis));
+    const errores = [];
+    dnis.forEach((dni, i) => {
+      if (yaInscriptos.has(dni)) {
+        errores.push({
+          campo: `participantes[${i}].dni`,
+          mensaje: `Esta persona ya está inscripta en otra actividad a las ${s.horario} hs de ese día.`,
+        });
+      }
+    });
+    if (errores.length) throw new ErrorValidacion(errores);
   }
 
   #validarDatos(s, actividad) {
@@ -230,12 +258,9 @@ class InscripcionService {
     if (!parsearFecha(s.fecha)) err('fecha', 'Seleccioná una fecha válida.');
     if (!esHoraValida(s.horario)) err('horario', 'Seleccioná un horario.');
 
-    const cantidadOk =
-      Number.isInteger(s.cantidadPersonas) &&
-      s.cantidadPersonas >= 1 &&
-      s.cantidadPersonas <= MAX_PERSONAS_POR_INSCRIPCION;
+    const cantidadOk = Number.isInteger(s.cantidadPersonas) && s.cantidadPersonas >= 1;
     if (!cantidadOk) {
-      err('cantidadPersonas', `Indicá cuántas personas participan (entre 1 y ${MAX_PERSONAS_POR_INSCRIPCION}).`);
+      err('cantidadPersonas', 'Indicá cuántas personas participan (al menos 1).');
     }
 
     const participantes = Array.isArray(s.participantes) ? s.participantes : [];
@@ -251,15 +276,19 @@ class InscripcionService {
       }
       const dni = String(p.dni ?? '').trim();
       if (!REGEX_DNI.test(dni)) {
-        err(campo('dni'), 'El DNI debe tener 7 u 8 números, sin puntos.');
+        err(campo('dni'), 'El DNI debe tener de 6 a 8 números, sin puntos.');
       } else if (dnis.has(dni)) {
         err(campo('dni'), 'Este DNI ya está cargado en la inscripción.');
       } else {
         dnis.add(dni);
       }
       const edad = Number(p.edad);
-      if (p.edad === '' || p.edad === null || !Number.isInteger(edad) || edad < 0 || edad > 120) {
+      if (p.edad === '' || p.edad === null || !Number.isInteger(edad) || edad < 0) {
         err(campo('edad'), 'Ingresá una edad válida.');
+      } else if (edad > EDAD_MAXIMA) {
+        err(campo('edad'), `La edad máxima para participar es ${EDAD_MAXIMA} años.`);
+      } else if (edad < actividad.edadMinima) {
+        err(campo('edad'), `${actividad.nombre} es para personas de ${actividad.edadMinima} años o más.`);
       }
       if (actividad.requiereTalla && !TALLAS_VALIDAS.includes(p.talla)) {
         err(campo('talla'), `${actividad.nombre} requiere seleccionar la talla de vestimenta.`);
@@ -285,10 +314,18 @@ class InscripcionService {
     if (!actividad.horarios.includes(horario)) {
       throw new ErrorNoDisponible(`${actividad.nombre} no está disponible a las ${horario}.`);
     }
-    if (this.#yaPaso(fecha, horario)) {
-      throw new ErrorNoDisponible('Ese horario ya pasó. Elegí uno futuro.');
+    const ventana = estadoVentanaInscripcion(fecha, horario, this.reloj());
+    if (ventana === 'cerrada') {
+      throw new ErrorNoDisponible(
+        `La inscripción a ese turno ya cerró: cierra ${MINUTOS_CIERRE_INSCRIPCION} minutos antes del inicio.`
+      );
+    }
+    if (ventana === 'no_habilitada') {
+      throw new ErrorNoDisponible(
+        `Todavía no podés inscribirte a ese turno: la inscripción se habilita ${HORAS_ANTICIPACION_MAXIMA} hs antes del inicio.`
+      );
     }
   }
 }
 
-module.exports = { InscripcionService, MAX_PERSONAS_POR_INSCRIPCION, fechaLegible };
+module.exports = { InscripcionService, fechaLegible };

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { obtenerActividades, obtenerDisponibilidad, listarInscripciones } from '../api.js';
 import { formatearFechaLarga } from '../fechas.js';
+import { textoEdad } from '../validacion.js';
 import { IconoActividad } from '../Iconos.jsx';
 import Encabezado from '../componentes/Encabezado.jsx';
 
@@ -151,6 +152,7 @@ export default function Inscripciones() {
                 <div><dt>Cupo por turno</dt><dd>{actividad.cupoPorHorario}</dd></div>
                 <div><dt>Turnos</dt><dd>{actividad.horarios.join(' · ')}</dd></div>
                 <div><dt>Talla</dt><dd>{actividad.requiereTalla ? 'Requerida' : 'No requerida'}</dd></div>
+                <div><dt>Edad</dt><dd>{textoEdad(actividad)}</dd></div>
               </dl>
             </div>
 

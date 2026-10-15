@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
-const QRCode = require('qrcode');
+const { qrComoPng, anchoQR } = require('../qr');
 const { parsearFecha } = require('../domain/parque');
 
 const CID_QR = 'qr-inscripcion';
@@ -18,7 +18,7 @@ function fechaLegible(fecha) {
   return `${DIAS[d.getDay()]} ${dia}/${m}/${a}`;
 }
 
-const celda = 'padding:8px 10px;border-bottom:1px solid rgb(214,239,221)';
+const celda = 'padding:8px 10px;border-bottom:1px solid rgb(220,233,188)';
 
 function armarHtml(inscripcion, actividad, urlDetalle) {
   const filas = inscripcion.participantes
@@ -34,38 +34,38 @@ function armarHtml(inscripcion, actividad, urlDetalle) {
 
   const boton = urlDetalle
     ? `<p style="text-align:center;margin:22px 0 4px">
-         <a href="${escapar(urlDetalle)}" style="display:inline-block;background:rgb(46,125,70);color:rgb(255,255,255);text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:10px">Ver mi inscripción</a>
+         <a href="${escapar(urlDetalle)}" style="display:inline-block;background:rgb(56,102,65);color:rgb(255,255,255);text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:10px">Ver mi inscripción</a>
        </p>`
     : '';
 
   return `<!doctype html>
-<html><body style="margin:0;background:rgb(242,250,244);font-family:Arial,Helvetica,sans-serif;color:rgb(31,51,38)">
-  <div style="max-width:560px;margin:24px auto;background:rgb(255,255,255);border-radius:14px;overflow:hidden;border:1px solid rgb(214,239,221)">
-    <div style="background:rgb(46,125,70);color:rgb(255,255,255);padding:20px 24px">
+<html><body style="margin:0;background:rgb(249,245,234);font-family:Lato,Arial,Helvetica,sans-serif;color:rgb(31,51,38)">
+  <div style="max-width:560px;margin:24px auto;background:rgb(255,255,255);border-radius:14px;overflow:hidden;border:1px solid rgb(220,233,188)">
+    <div style="background:rgb(56,102,65);color:rgb(255,255,255);padding:20px 24px">
       <div style="font-size:13px;opacity:.85">EcoHarmony Park · Confirmación de inscripción</div>
       <div style="font-size:24px;font-weight:bold;margin-top:2px">${escapar(actividad.nombre)}</div>
     </div>
     <div style="padding:24px">
       <p style="margin-top:0">¡Listo! Tu lugar está reservado. Presentá este código QR junto con el DNI de cada participante al ingresar a la actividad.</p>
       <div style="text-align:center;margin:20px 0">
-        <img src="cid:${CID_QR}" width="220" height="220" alt="Código QR de la inscripción" style="border:8px solid rgb(242,250,244);border-radius:12px" />
+        <img src="cid:${CID_QR}" width="${anchoQR(inscripcion.contenidoQR)}" alt="Código QR de la inscripción" style="display:block;margin:0 auto;width:${anchoQR(inscripcion.contenidoQR)}px;max-width:100%;height:auto;border-radius:12px" />
         <div style="font-family:Consolas,monospace;font-size:18px;letter-spacing:2px;margin-top:8px;font-weight:bold">${escapar(inscripcion.codigo)}</div>
-        <div style="font-size:12px;color:rgb(90,112,98)">Escaneá el QR con el celular para ver el detalle</div>
+        <div style="font-size:12px;color:rgb(84,104,88)">Escaneá el QR con la cámara del celular o con Google Lens</div>
       </div>
       <table style="width:100%;font-size:15px;margin-bottom:18px;border-collapse:collapse">
-        <tr><td style="${celda};color:rgb(90,112,98)">Fecha</td><td style="${celda}"><b>${escapar(fechaLegible(inscripcion.fecha))}</b></td></tr>
-        <tr><td style="${celda};color:rgb(90,112,98)">Horario</td><td style="${celda}"><b>${escapar(inscripcion.horario)} hs</b></td></tr>
-        <tr><td style="${celda};color:rgb(90,112,98)">Personas</td><td style="${celda}"><b>${escapar(inscripcion.cantidadPersonas)}</b></td></tr>
+        <tr><td style="${celda};color:rgb(84,104,88)">Fecha</td><td style="${celda}"><b>${escapar(fechaLegible(inscripcion.fecha))}</b></td></tr>
+        <tr><td style="${celda};color:rgb(84,104,88)">Horario</td><td style="${celda}"><b>${escapar(inscripcion.horario)} hs</b></td></tr>
+        <tr><td style="${celda};color:rgb(84,104,88)">Personas</td><td style="${celda}"><b>${escapar(inscripcion.cantidadPersonas)}</b></td></tr>
       </table>
       <table style="width:100%;font-size:14px;border-collapse:collapse">
-        <tr style="background:rgb(232,246,236);text-align:left">
+        <tr style="background:rgb(237,244,221);text-align:left">
           <th style="padding:8px 10px">Nombre</th><th style="padding:8px 10px">DNI</th><th style="padding:8px 10px">Edad</th>
           ${actividad.requiereTalla ? '<th style="padding:8px 10px">Talla</th>' : ''}
         </tr>
         ${filas}
       </table>
       ${boton}
-      <p style="font-size:12px;color:rgb(90,112,98);margin-top:22px">Aceptaste los términos y condiciones de ${escapar(actividad.nombre)} y las condiciones generales del parque. Presentate 15 minutos antes del horario.</p>
+      <p style="font-size:12px;color:rgb(84,104,88);margin-top:22px">Aceptaste los términos y condiciones de ${escapar(actividad.nombre)} y las condiciones generales del parque. Presentate 15 minutos antes del horario.</p>
     </div>
   </div>
 </body></html>`;
@@ -92,12 +92,7 @@ class MailService {
   }
 
   async enviarConfirmacion({ inscripcion, actividad, urlDetalle = null }) {
-    const qrPng = await QRCode.toBuffer(inscripcion.contenidoQR, {
-      width: 360,
-      margin: 1,
-      errorCorrectionLevel: 'M',
-      color: { dark: '#1F3326', light: '#FFFFFF' },
-    });
+    const qrPng = await qrComoPng(inscripcion.contenidoQR);
 
     const info = await this.transporter.sendMail({
       from: this.remitente,

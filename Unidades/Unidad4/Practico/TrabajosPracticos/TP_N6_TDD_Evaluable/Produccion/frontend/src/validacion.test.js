@@ -1,13 +1,13 @@
 import { describe, test, expect } from 'vitest';
-import { validarFormulario, ajustarParticipantes, armarSolicitud, hoyISO } from './validacion.js';
+import { validarFormulario, ajustarParticipantes, armarSolicitud, hoyISO, textoEdad } from './validacion.js';
 
-const tirolesa = { id: 'tirolesa', requiereTalla: true, tallas: ['XS', 'S', 'M', 'L', 'XL', 'XXL'] };
-const safari = { id: 'safari', requiereTalla: false, tallas: [] };
+const tirolesa = { id: 'tirolesa', requiereTalla: true, edadMinima: 8, tallas: ['XS', 'S', 'M', 'L', 'XL', 'XXL'] };
+const safari = { id: 'safari', requiereTalla: false, edadMinima: 0, tallas: [] };
 
 const formValido = (extra = {}) => ({
   actividadId: 'tirolesa',
   fecha: '2026-10-10',
-  horario: '10:30',
+  horario: '10:00',
   cantidadPersonas: 1,
   participantes: [{ nombre: 'Ana Pérez', dni: '40123456', edad: '25', talla: 'M' }],
   aceptaTerminos: true,
@@ -51,6 +51,35 @@ describe('validarFormulario', () => {
     const errores = validarFormulario(form, tirolesa);
     expect(errores).toHaveProperty(['participantes[0].edad']);
     expect(errores['participantes[1].dni']).toMatch(/repetido/);
+  });
+});
+
+describe('reglas del PO', () => {
+  test('rechaza a quien no tiene la edad mínima de la actividad', () => {
+    const form = formValido({ participantes: [{ nombre: 'Ana', dni: '40123456', edad: '7', talla: 'M' }] });
+    expect(validarFormulario(form, tirolesa)['participantes[0].edad']).toMatch(/8 años/);
+  });
+
+  test('acepta cualquier edad si la actividad es para todas las edades', () => {
+    const form = formValido({ participantes: [{ nombre: 'Ana', dni: '40123456', edad: '2', talla: '' }] });
+    expect(validarFormulario(form, safari)).toEqual({});
+  });
+
+  test('no tiene máximo de personas (el límite es el cupo)', () => {
+    const doce = Array.from({ length: 12 }, (_, i) => ({ nombre: 'Persona', dni: String(30000001 + i), edad: '30', talla: 'M' }));
+    expect(validarFormulario(formValido({ cantidadPersonas: 12, participantes: doce }), tirolesa)).toEqual({});
+  });
+
+  test('acepta DNI de 6 dígitos y rechaza edades mayores a 100', () => {
+    const form = formValido({ participantes: [{ nombre: 'Ana', dni: '123456', edad: '101', talla: 'M' }] });
+    const errores = validarFormulario(form, tirolesa);
+    expect(errores).not.toHaveProperty(['participantes[0].dni']);
+    expect(errores['participantes[0].edad']).toMatch(/100/);
+  });
+
+  test('describe la edad permitida', () => {
+    expect(textoEdad(tirolesa)).toBe('Desde 8 años');
+    expect(textoEdad(safari)).toBe('Todas las edades');
   });
 });
 
