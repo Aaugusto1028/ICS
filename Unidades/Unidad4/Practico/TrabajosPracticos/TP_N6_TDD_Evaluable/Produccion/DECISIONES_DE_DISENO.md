@@ -7,7 +7,7 @@ Ingeniería en Sistemas de Información · Ingeniería y calidad de software 202
 |---|---|
 | **Tema** | TDD - Toma de Decisiones |
 | **Unidad** | Nro. 3 |
-| **Trabajo Práctico** | Nro. 4 |
+| **Trabajo Práctico** | Nro. 6 |
 | **Año** | 2026 |
 | **Curso** | 4K3 |
 | **Grupo** | Nro. 12 |
