@@ -1,1 +1,9 @@
 .DS_Store
+
+# Dependencias de Node.js
+**/node_modules/
+
+# Datos locales y credenciales de Produccion
+**/.env
+**/data/
+**/outbox/

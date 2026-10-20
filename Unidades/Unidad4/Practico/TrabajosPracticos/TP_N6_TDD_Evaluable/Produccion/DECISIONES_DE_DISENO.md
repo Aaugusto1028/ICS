@@ -84,3 +84,4 @@ Ingeniería en Sistemas de Información · Ingeniería y calidad de software 202
 | 44 | Fuera del alcance de esta historia: cancelar o modificar inscripciones, lista de espera y panel para el personal del parque. | Maximiliano Vicentini |
 | 45 | Pestaña "Inscripciones" para ver las inscripciones registradas y la ocupación de cada turno. | Maximiliano Vicentini |
 | 46 | Textos en español rioplatense con voseo ("Elegí", "Ingresá"). | Maximiliano Vicentini |
+| 47 | Los tests del backend se agrupan con `describe` según el criterio de aceptación o la regla del PO que verifican. | Francisco Quarato |
