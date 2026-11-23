@@ -65,18 +65,20 @@ La estructura de cada unidad se crea según el material efectivamente disponible
 
 ### Prácticos definidos por la guía
 
-La guía `MaterialPractico/GuiaDeTrabajosPracticosEvaluables.pdf` es la fuente para el listado, tipo y unidad de cada práctico. Los que requieren carpeta de entrega son:
+La guía `MaterialPractico/GuiaDeTrabajosPracticosEvaluables.pdf` define el tipo y la unidad de cada práctico. La tabla reúne los prácticos previstos como evaluables.
 
-| Práctico | Tema                                          | Unidad indicada en la guía | Estado                   |
+| Práctico | Tema                                          | Unidad indicada en la guía | Tipo y estado            |
 | --------- | --------------------------------------------- | --------------------------- | ------------------------ |
 | TP 4      | SCM - Herramientas de SCM                     | Unidad 3                    | Evaluable                |
 | TP 5      | SCM - Uso del Repositorio                     | Unidad 3                    | Evaluable                |
 | TP 6      | TDD                                           | Unidad 4                    | Evaluable                |
 | TP 7      | SCRUM - Ejercicio de aplicación              | Unidad 2                    | Evaluable                |
 | TP 10     | KANBAN - Ejercicio de aplicación             | Unidad 4                    | Evaluable                |
-| TP 11     | SCRUM - Dinámica de Retrospectiva            | Unidad 2                    | Evaluable                |
+| TP 11     | SCRUM - Dinámica de Retrospectiva            | Unidad 2                    | Evaluable previsto. No realizado. |
 | TP 12     | Design Thinking - Publicidad de Instagram     | Unidad 2                    | Evaluable                |
-| TP 13     | SCRUM - Planificación de Release y de Sprint | Unidad 3                    | Evaluable, recuperatorio |
+| TP 13     | SCRUM - Planificación de Release y de Sprint | Unidad 3                    | Evaluable previsto como recuperatorio. No realizado. |
+
+Los TP 11 y 13 no se realizaron por falta de tiempo en la asignatura.
 
 Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega obligatoria ni nota, según la guía. Los TP 1, 2 y 3 tienen carpeta propia en la Unidad 2, con el enunciado y la resolución del Grupo 12. Los TP 8 y 9 se guardan en la Unidad 4, con el enunciado, la resolución y la planilla de casos de prueba. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
 
