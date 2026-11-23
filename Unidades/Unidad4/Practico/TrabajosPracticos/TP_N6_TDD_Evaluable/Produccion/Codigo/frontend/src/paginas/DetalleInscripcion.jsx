@@ -97,7 +97,7 @@ function EstadoEmail({ inscripcion }) {
       return (
         <p className="estado-email aviso">
           <b>Modo de prueba:</b> el servidor no tiene configurado el envío de mails, así que el email para{' '}
-          <b>{inscripcion.email}</b> se guardó en <code>backend/outbox/</code> en lugar de enviarse.
+          <b>{inscripcion.email}</b> se guardó en <code>Codigo/backend/outbox/</code> en lugar de enviarse.
         </p>
       );
     case 'error':

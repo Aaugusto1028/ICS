@@ -12,7 +12,7 @@ async function iniciar() {
   const mailer = new MailService({ transporter, modo, remitente });
   console.log(`[mail] Envío por ${descripcion}`);
   if (modo === 'archivo') {
-    console.log('[mail] Para enviar mails reales, completá SMTP_* en backend/.env (ver .env.example).');
+    console.log('[mail] Para enviar mails reales, completá SMTP_* en Codigo/backend/.env.');
   } else {
     mailer
       .verificar()
