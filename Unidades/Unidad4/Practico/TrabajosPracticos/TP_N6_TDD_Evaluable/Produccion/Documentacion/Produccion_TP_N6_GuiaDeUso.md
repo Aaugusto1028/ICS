@@ -25,9 +25,10 @@ Produccion/
 │       │   └── styles.css             # Estilos
 │       ├── package.json
 │       └── vite.config.js             # Servidor de desarrollo y proxy de /api
-├── docs/
-├── DECISIONES_DE_DISENO.md        # Reglas y decisiones del producto
-└── README.md
+└── Documentacion/
+    ├── Imagenes/
+    ├── Produccion_TP_N6_DecisionesDeDiseno.md
+    └── Produccion_TP_N6_GuiaDeUso.md
 ```
 
 La base de datos se crea automáticamente en `Codigo/backend/data/parque.sqlite` al iniciar el servidor. Usa `sql.js`, por lo que no hace falta instalar un motor SQLite por separado.
@@ -102,4 +103,4 @@ El backend admite estas variables de entorno:
 - `DB_ARCHIVO`: ruta de la base SQLite; por defecto `data/parque.sqlite` relativa a `Codigo/backend/`.
 - `URL_PUBLICA`: URL pública opcional que se agrega a los QR.
 
-Más detalles sobre las reglas del producto y decisiones de implementación: [DECISIONES_DE_DISENO.md](./DECISIONES_DE_DISENO.md).
+Las reglas del producto y las decisiones de implementación se detallan en el documento de diseño. [Decisiones de diseño](./Produccion_TP_N6_DecisionesDeDiseno.md)

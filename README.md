@@ -52,6 +52,9 @@ ICS/
         │       └── TP_N<N>_<Tema>_<Tipo>/
         │           ├── Enunciado/
         │           ├── Produccion/
+        │           │   ├── Codigo/        (si el TP incluye código)
+        │           │   └── Documentacion/ (si hay documentación auxiliar)
+        │           │       └── Imagenes/ (si hay recursos gráficos de apoyo)
         │           ├── Entrega/
         │           └── Retroalimentacion/ (opcional, si hay devoluciones de la cátedra)
         ├── Presentaciones/
@@ -163,7 +166,7 @@ Se mantiene un archivo `.txt` por cada clase grabada y cada archivo contiene el 
 Los TP evaluables mantienen las carpetas `Enunciado/`, `Produccion/` y `Entrega/`, incluso si aún no contienen archivos.
 
 * **`Enunciado/`** contiene la consigna y el material base del TP.
-* **`Produccion/`** contiene el material de trabajo del grupo previo a la entrega. Si el TP incluye código, se guarda en `Produccion/Codigo/`.
+* **`Produccion/`** contiene el material de trabajo del grupo previo a la entrega. Si el TP incluye código, se guarda en `Produccion/Codigo/`. La documentación auxiliar se guarda en `Produccion/Documentacion/` y sus recursos gráficos en `Produccion/Documentacion/Imagenes/`. Los documentos y las imágenes de esas subcarpetas siguen el patrón de nombrado del material de producción.
 * **`Entrega/`** contiene la versión final del TP entregada.
 
 La retroalimentación es opcional para todos los TP, incluidos los evaluables. La carpeta **`Retroalimentacion/`** se crea únicamente para guardar una devolución o corrección recibida de la cátedra.
