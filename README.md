@@ -34,9 +34,9 @@ ICS/
 │   ├── Finales/
 │   ├── Parciales/
 │   │   ├── Parcial1/
-│   │   │   
+│   │   │   └── Ejemplos/
 │   │   └── Parcial2/
-│   │     
+│   │       └── Ejemplos/
 │   └── Resumenes/
 │       ├── Finales/
 │       └── Parcial<N>/
@@ -85,6 +85,8 @@ Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega ni nota, según la 
 
 En `Examenes/`, `Finales/` y `Resumenes/` son carpetas hermanas: la primera reserva los exámenes finales y la segunda contiene los resúmenes, separados por tipo de examen. Los ejemplos de parciales permanecen en `Parciales/Parcial<N>/Ejemplos/`.
 
+Para nombrar los ejemplos de parciales se usa la fecha del examen en formato `DD-MM-YYYY`. Si hay más de un tema del mismo parcial en la misma fecha, se agrega el sufijo correspondiente a cada archivo, por ejemplo `_TemaA` y `_TemaB`.
+
 ## Línea Base
 
 ### Criterio de creación
@@ -127,7 +129,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Guía de Trabajos Prácticos Evaluables             | `GuiaDeTrabajosPracticosEvaluables.pdf`                          | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
 | Guía de Ejercicios Prácticos Resueltos            | `GuiaDeEjerciciosPracticosResueltos.pdf`                         | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
 | Información de parciales                           | `InformacionDeParciales.pdf`                                     | `/ICS/DocumentosDeCatedra/`                                                                               | Cátedra               |
-| Ejemplos de parciales                               | `EjemploParcial<Numero>_<Fecha>.pdf`                             | `/ICS/Examenes/Parciales/Parcial<Numero>/Ejemplos/`                                                       | Material de Referencia |
+| Ejemplos de parciales                               | `EjemploParcial<Numero>_<Fecha>[_<Tema>].pdf`                    | `/ICS/Examenes/Parciales/Parcial<Numero>/Ejemplos/`                                                       | Material de Referencia |
 | Resumen de parcial                                  | `ResumenParcial<Numero>_<Autor>_<Año>.pdf`                      | `/ICS/Examenes/Resumenes/Parcial<Numero>/`                                                                | Material de Referencia |
 | Resumen de final                                    | `ResumenFinal_<Autor>_<Año>.pdf`                                | `/ICS/Examenes/Resumenes/Finales/`                                                                        | Material de Referencia |
 | Casos de estudio                                    | `Caso_<Nombre>.pdf`                                              | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
