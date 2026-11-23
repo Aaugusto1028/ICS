@@ -75,7 +75,7 @@ La guía `MaterialPractico/GuiaDeTrabajosPracticosEvaluables.pdf` es la fuente p
 | TP 12     | Design Thinking - Publicidad de Instagram     | Unidad 2                    | Evaluable                |
 | TP 13     | SCRUM - Planificación de Release y de Sprint | Unidad 3                    | Evaluable, recuperatorio |
 
-Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega obligatoria ni nota, según la guía. Los TP 1, 2 y 3 tienen carpeta propia en la Unidad 2, con el enunciado y la resolución del Grupo 12. Las consignas de los TP 8 y 9 se consultan en la guía compartida. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
+Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega obligatoria ni nota, según la guía. Los TP 1, 2 y 3 tienen carpeta propia en la Unidad 2, con el enunciado y la resolución del Grupo 12. Los TP 8 y 9 se guardan en la Unidad 4, con el enunciado, la resolución y la planilla de casos de prueba. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
 
 Si la cátedra publica un enunciado únicamente en la guía compartida, se pueden extraer las páginas correspondientes y guardarlas en `Enunciado/` con el nombre previsto para ese TP. La guía completa se conserva en `MaterialPractico/`.
 
