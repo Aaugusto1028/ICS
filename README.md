@@ -7,22 +7,18 @@ El repositorio estará estructurado a base de directorios y contenidos, para un 
 
 ## Integrantes
 
-| Apellido, Nombre              | Legajo |
-| ----------------------------- | ------ |
-| Vicentini, Maximiliano        | 90426  |
-| Sanchez, Luciano Enrique      | 89734  |
-| Vera, Geronimo                | 89785  |
-| Rivarola, Aldana              | 407066 |
-| Costantino Morillo, Augusto   | 407349 |
-| Baravalle Graglia, Juan Cruz  | 400109 |
-| Rojo, Dalila                  | 81846  |
-| Medina Ibarra, Román         | 89645  |
-| Pérez, Facundo               | 401067 |
-| Caccia, Juan Manuel           | 405533 |
-| Zangla Hernández, Juan Pablo | 403553 |
-| Suarez Paez, Tomás Ticiano   | 401747 |
-| Quarato, Francisco Ignacio    | 55001  |
-| Stura Murua, Fermín          | 82336  |
+| Apellido, Nombre            | Legajo |
+| --------------------------- | ------ |
+| Costantino Morillo, Augusto | 407349 |
+| Vicentini, Maximiliano      | 90426  |
+| Rojo, Dalila                | 81846  |
+| Rivarola, Aldana            | 407066 |
+| Pérez, Facundo              | 401067 |
+| Sánchez, Luciano Enrique   | 89734  |
+| Vera, Gerónimo              | 89785  |
+| Suarez Paez, Tomás Ticiano  | 401747 |
+| Caccia, Juan Manuel         | 405533 |
+| Quarato, Francisco Ignacio  | 55001  |
 
 ## Estructura del Repositorio
 
@@ -57,7 +53,7 @@ ICS/
         │           ├── Enunciado/
         │           ├── Produccion/
         │           ├── Entrega/
-        │           └── Retroalimentacion/
+        │           └── Retroalimentacion/ (opcional, si hay devoluciones de la cátedra)
         ├── Presentaciones/
         └── Teorico/
 ```
@@ -79,7 +75,7 @@ La guía `MaterialPractico/GuiaDeTrabajosPracticosEvaluables.pdf` es la fuente p
 | TP 12     | Design Thinking - Publicidad de Instagram     | Unidad 2                    | Evaluable                |
 | TP 13     | SCRUM - Planificación de Release y de Sprint | Unidad 3                    | Evaluable, recuperatorio |
 
-Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega ni nota, según la guía; por eso no tienen carpeta propia dentro de `TrabajosPracticos/`. Se conservan sus consignas en la guía compartida. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
+Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega obligatoria ni nota, según la guía. Los TP 1, 2 y 3 tienen carpeta propia en la Unidad 2, con el enunciado y la resolución del Grupo 12. Las consignas de los TP 8 y 9 se consultan en la guía compartida. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
 
 Si la cátedra publica un enunciado únicamente en la guía compartida, se pueden extraer las páginas correspondientes y guardarlas en `Enunciado/` con el nombre previsto para ese TP. La guía completa se conserva en `MaterialPractico/`.
 
@@ -121,7 +117,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Enunciados de Trabajo Práctico                     | `Enunciado_TP_N<Número>.pdf`                                    | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Enunciado/`         | Consigna               |
 | Material de producción de Trabajo Práctico        | `Produccion_TP_N<Número>[_<Descripción>][_<Grupo>].<ext>`      | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Produccion/`        | Material de trabajo    |
 | Entregables de Trabajo Práctico                    | `TP_N<Número>_<Grupo>.<ext>`                                    | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Entrega/`           | Entregable             |
-| Retroalimentación de Trabajo Práctico             | `Retroalimentacion_TP_N<Número>_<Grupo>[_<Descripción>].<ext>` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Retroalimentacion/` | Cátedra               |
+| Retroalimentación de Trabajo Práctico (opcional)  | `Retroalimentacion_TP_N<Número>_<Grupo>[_<Descripción>].<ext>` | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/TP_N<Número>_<Tema>_<Tipo>/Retroalimentacion/` | Cátedra               |
 | Trabajos de Investigación                          | `TrabajoDeInvestigacion_TP_N<Número>_<Tema>_<Grupo>.<ext>`      | `/ICS/TrabajosDeInvestigacion/`                                                                           | Entregable             |
 | Presentaciones de clase                             | `Presentacion_<Tema>.pdf`                                        | `/ICS/Unidades/Unidad<Número>/Presentaciones/`                                                           | Material de Referencia |
 | Apuntes de alumnos                                  | `Apunte_<TemaDeClase>_<FechaDeClase>_<Autor>.pdf`                | `/ICS/Unidades/Unidad<Número>/Apuntes/`                                                                  | Apunte de clase        |
@@ -164,10 +160,10 @@ Se mantiene un archivo `.txt` por cada clase grabada y cada archivo contiene el 
 
 ## Estructura interna de Trabajos Prácticos
 
-Todos los Trabajos Prácticos que sean del tipo Evaluable, deberán contar con la siguiente estructura, en caso de que no se necesite alguna de las carpetas, deberá conservarse para mantener consistencia
+Los TP evaluables mantienen las carpetas `Enunciado/`, `Produccion/` y `Entrega/`, incluso si aún no contienen archivos.
 
-* ***Enunciado/*** : Consigna y material base del TP
-* ***Produccion/*** : Material de trabajo del grupo previo a la entrega
-* ***Produccion/Codigo/*** : Si el TP incluye código, deberá incluirse aqui
-* ***Entrega/*** : Versión final del TP entregada
-* ***Retroalimentacion/*** : Devoluciones o correcciones devueltas
+* **`Enunciado/`** contiene la consigna y el material base del TP.
+* **`Produccion/`** contiene el material de trabajo del grupo previo a la entrega. Si el TP incluye código, se guarda en `Produccion/Codigo/`.
+* **`Entrega/`** contiene la versión final del TP entregada.
+
+La retroalimentación es opcional para todos los TP, incluidos los evaluables. La carpeta **`Retroalimentacion/`** se crea únicamente para guardar una devolución o corrección recibida de la cátedra.
