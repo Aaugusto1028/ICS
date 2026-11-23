@@ -29,7 +29,7 @@ async function main() {
       'ECOHARMONY PARK INS-PRUEBA\nTirolesa Sabado 17/10/2026 10:00 hs\n1. Visitante de Prueba DNI 40123456',
   };
   const r = await mailer.enviarConfirmacion({ inscripcion, actividad: buscarActividad('tirolesa') });
-  console.log(modo === 'smtp' ? `Listo, mail enviado (id ${r.messageId}). Revisá la bandeja de entrada y el spam.` : 'Sin SMTP configurado: se guardó en backend/outbox/.');
+  console.log(modo === 'smtp' ? `Listo, mail enviado (id ${r.messageId}). Revisá la bandeja de entrada y el spam.` : 'Sin SMTP configurado: se guardó en Codigo/backend/outbox/.');
 }
 
 main().catch((e) => {

@@ -34,9 +34,9 @@ ICS/
 │   ├── Finales/
 │   ├── Parciales/
 │   │   ├── Parcial1/
-│   │   │   
+│   │   │   └── Ejemplos/
 │   │   └── Parcial2/
-│   │     
+│   │       └── Ejemplos/
 │   └── Resumenes/
 │       ├── Finales/
 │       └── Parcial<N>/
@@ -81,9 +81,13 @@ La guía `MaterialPractico/GuiaDeTrabajosPracticosEvaluables.pdf` es la fuente p
 
 Los TP 1, 2, 3, 8 y 9 son actividades prácticas sin entrega ni nota, según la guía; por eso no tienen carpeta propia dentro de `TrabajosPracticos/`. Se conservan sus consignas en la guía compartida. Las carpetas de los evaluables se ubican en la unidad indicada en la tabla, aunque la numeración del TP no coincida con la unidad.
 
+Si la cátedra publica un enunciado únicamente en la guía compartida, se pueden extraer las páginas correspondientes y guardarlas en `Enunciado/` con el nombre previsto para ese TP. La guía completa se conserva en `MaterialPractico/`.
+
 `MaterialPractico/` reúne recursos de consulta compartidos que apoyan actividades prácticas (guías, casos y lineamientos generales). Por ese carácter transversal, los lineamientos para los trabajos de investigación grupal se conservan allí; las entregas de esos trabajos se organizan por separado en `TrabajosDeInvestigacion/`.
 
 En `Examenes/`, `Finales/` y `Resumenes/` son carpetas hermanas: la primera reserva los exámenes finales y la segunda contiene los resúmenes, separados por tipo de examen. Los ejemplos de parciales permanecen en `Parciales/Parcial<N>/Ejemplos/`.
+
+Para nombrar los ejemplos de parciales se usa la fecha del examen en formato `DD-MM-YYYY`. Si hay más de un tema del mismo parcial en la misma fecha, se agrega el sufijo correspondiente a cada archivo, por ejemplo `_TemaA` y `_TemaB`.
 
 ## Línea Base
 
@@ -110,7 +114,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Nombre del ítem de configuración                  | Regla de nombrado                                                  | Ubicación física                                                                                          | Tipo de ítem          |
 | --------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ---------------------- |
 | Programa de la asignatura                           | `Programa_<Año>.pdf`                                            | `/ICS/DocumentosDeCatedra/`                                                                               | Cátedra               |
-| Material Bibliográfico                             | `Bibliografia_<Tema>_<NombreLibro>_<Autores>.pdf`                | `/ICS/MaterialBibliografico/<Tema>/`                                                                      | Material de Referencia |
+| Material Bibliográfico                             | `Bibliografia_<TemaCarpeta>[_<Subtema>]_<NombreLibro>_<Autores>.pdf` | `/ICS/MaterialBibliografico/<TemaCarpeta>/`                                                               | Material de Referencia |
 | Lineamientos y Plan de Configuración               | `README.md`                                                      | `/ICS/`                                                                                                   | Gestión               |
 | Cronograma                                          | `Cronograma_<Año>.pdf`                                          | `/ICS/DocumentosDeCatedra/`                                                                               | Cátedra               |
 | Carpeta de Trabajo Práctico                        | `TP_N<Número>_<Tema>_<Tipo>/`                                   | `/ICS/Unidades/Unidad<Número>/Practico/TrabajosPracticos/`                                               | Trabajo práctico      |
@@ -123,11 +127,11 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Apuntes de alumnos                                  | `Apunte_<TemaDeClase>_<FechaDeClase>_<Autor>.pdf`                | `/ICS/Unidades/Unidad<Número>/Apuntes/`                                                                  | Apunte de clase        |
 | Presentación de la asignatura                      | `Presentacion_<Año>.pdf`                                        | `/ICS/DocumentosDeCatedra/`                                                                               | Cátedra               |
 | Clases grabadas                                     | `ClaseGrabada_<Tema>_<Curso>_<Año>[_<Numero>].txt`              | `/ICS/ClasesGrabadas/`                                                                                    | Material de Referencia |
-| Lineamientos para trabajos de investigación grupal | `LineamientosParaTrabajosDeInvestigaciónGrupal.pdf`             | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
+| Lineamientos para trabajos de investigación grupal | `LineamientosParaTrabajosDeInvestigacionGrupal.pdf`             | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
 | Guía de Trabajos Prácticos Evaluables             | `GuiaDeTrabajosPracticosEvaluables.pdf`                          | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
 | Guía de Ejercicios Prácticos Resueltos            | `GuiaDeEjerciciosPracticosResueltos.pdf`                         | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
 | Información de parciales                           | `InformacionDeParciales.pdf`                                     | `/ICS/DocumentosDeCatedra/`                                                                               | Cátedra               |
-| Ejemplos de parciales                               | `EjemploParcial<Numero>_<Fecha>.pdf`                             | `/ICS/Examenes/Parciales/Parcial<Numero>/Ejemplos/`                                                       | Material de Referencia |
+| Ejemplos de parciales                               | `EjemploParcial<Numero>_<Fecha>[_<Tema>].pdf`                    | `/ICS/Examenes/Parciales/Parcial<Numero>/Ejemplos/`                                                       | Material de Referencia |
 | Resumen de parcial                                  | `ResumenParcial<Numero>_<Autor>_<Año>.pdf`                      | `/ICS/Examenes/Resumenes/Parcial<Numero>/`                                                                | Material de Referencia |
 | Resumen de final                                    | `ResumenFinal_<Autor>_<Año>.pdf`                                | `/ICS/Examenes/Resumenes/Finales/`                                                                        | Material de Referencia |
 | Casos de estudio                                    | `Caso_<Nombre>.pdf`                                              | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
@@ -152,6 +156,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 * Cada carpeta de Trabajo Práctico se identifica con su número, tema y tipo indicado en la consigna (por ejemplo, Evaluable, EvaluableRecuperatorio, NoEvaluable o Entregable).
 * Los archivos entregados de un Trabajo Práctico se nombran `TP_N<Número>_<Grupo>.<ext>`, de modo que el nombre identifique tanto el TP como el grupo, como en `TP_N4_Grupo12.pdf`.
 * Evitar el uso de tildes o caracteres especiales en nombres de archivos y directorios para garantizar la compatibilidad con herramientas de consola, scripts y sistemas de codificación.
+* En bibliografía, `<TemaCarpeta>` coincide con la carpeta inmediata. Se agrega `<Subtema>` cuando aporta una clasificación más específica. En `<Autores>` se escriben los autores en UpperCamelCase en un solo campo.
 
 ### Clases grabadas
 
