@@ -44,7 +44,8 @@ ICS/
 │   └── TestDrivenDevelopment/
 ├── MaterialPractico/
 ├── NotasDeClases/
-│   └── Practico.md
+│   ├── Practico.md
+│   └── Teorico.md
 ├── TrabajosDeInvestigacion/
 └── Unidades/
     └── Unidad<N>/
@@ -88,7 +89,7 @@ Si la cátedra publica un enunciado únicamente en la guía compartida, se puede
 
 `MaterialPractico/` reúne recursos de consulta compartidos que apoyan actividades prácticas (guías, casos y lineamientos generales). Por ese carácter transversal, los lineamientos para los trabajos de investigación grupal se conservan allí; las entregas de esos trabajos se organizan por separado en `TrabajosDeInvestigacion/`.
 
-`NotasDeClases/` reúne apuntes en Markdown que abarcan varias unidades. `Practico.md` conserva las notas de las clases prácticas.
+`NotasDeClases/` reúne apuntes en Markdown que abarcan varias unidades. `Practico.md` conserva las notas de las clases prácticas y `Teorico.md`, las de las clases teóricas.
 
 En `Examenes/`, `Finales/` y `Resumenes/` son carpetas hermanas: la primera reserva los exámenes finales y la segunda contiene los resúmenes, separados por tipo de examen. Los ejemplos de parciales permanecen en `Parciales/Parcial<N>/Ejemplos/`.
 
@@ -130,7 +131,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 | Trabajos de Investigación                          | `TrabajoDeInvestigacion_TP_N<Número>_<Tema>_<Grupo>.<ext>`      | `/ICS/TrabajosDeInvestigacion/`                                                                           | Entregable             |
 | Presentaciones de clase                             | `Presentacion_<Tema>.pdf`                                        | `/ICS/Unidades/Unidad<Número>/Presentaciones/`                                                           | Material de Referencia |
 | Apuntes de alumnos                                  | `Apunte_<TemaDeClase>_<FechaDeClase>_<Autor>.pdf`                | `/ICS/Unidades/Unidad<Número>/Apuntes/`                                                                  | Apunte de clase        |
-| Notas de clases de varias unidades                   | `Practico.md`                                                     | `/ICS/NotasDeClases/`                                                                                     | Apunte de clase        |
+| Notas de clases de varias unidades                   | `Practico.md` o `Teorico.md`                                       | `/ICS/NotasDeClases/`                                                                                     | Apunte de clase        |
 | Presentación de la asignatura                      | `Presentacion_<Año>.pdf`                                        | `/ICS/DocumentosDeCatedra/`                                                                               | Cátedra               |
 | Clases grabadas                                     | `ClaseGrabada_<Tema>_<Curso>_<Año>[_<Numero>].txt`              | `/ICS/ClasesGrabadas/`                                                                                    | Material de Referencia |
 | Lineamientos para trabajos de investigación grupal | `LineamientosParaTrabajosDeInvestigacionGrupal.pdf`             | `/ICS/MaterialPractico/`                                                                                  | Material de Referencia |
