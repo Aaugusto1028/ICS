@@ -27,15 +27,14 @@ ICS/
 ├── ClasesGrabadas/
 ├── DocumentosDeCatedra/
 ├── Examenes/
-│   ├── Finales/
 │   ├── Parciales/
 │   │   ├── Parcial1/
 │   │   │   └── Ejemplos/
 │   │   └── Parcial2/
 │   │       └── Ejemplos/
 │   └── Resumenes/
-│       ├── Finales/
-│       └── Parcial<N>/
+│       ├── Parcial1/
+│       └── Parcial2/
 ├── MaterialBibliografico/
 │   ├── Agilismo/
 │   ├── GestionDeConfiguracionDeSoftware/
@@ -50,22 +49,21 @@ ICS/
 ├── TrabajosDeInvestigacion/
 └── Unidades/
     └── Unidad<N>/
-        ├── Apuntes/
+        ├── Apuntes/                  (si hay apuntes de la unidad)
         ├── Practico/                 (solo si hay material práctico de la unidad)
         │   └── TrabajosPracticos/    (solo si hay trabajos prácticos)
         │       └── TP_N<N>_<Tema>_<Tipo>/
         │           ├── Enunciado/
-        │           ├── Produccion/
+        │           ├── Produccion/   (si hay material de trabajo)
         │           │   ├── Codigo/        (si el TP incluye código)
         │           │   └── Documentacion/ (si hay documentación auxiliar)
         │           │       └── Imagenes/ (si hay recursos gráficos de apoyo)
-        │           ├── Entrega/
+        │           ├── Entrega/       (si hay una entrega)
         │           └── Retroalimentacion/ (opcional, si hay devoluciones de la cátedra)
-        ├── Presentaciones/
-        └── Teorico/
+        └── Presentaciones/
 ```
 
-La estructura de cada unidad se crea según el material efectivamente disponible y las actividades asignadas por la cátedra; no se mantienen carpetas vacías como reserva. Por eso, una unidad que todavía no tenga prácticos (por ejemplo, Unidad1) no necesita `Practico/` ni `TrabajosPracticos/`. Cuando se publique un nuevo práctico, se crea su carpeta dentro de la unidad correspondiente y se aplica la estructura interna definida más abajo. Si un trabajo abarca varias unidades, se ubica en la última unidad que abarca. No se inventa ni se completa material faltante: se incorpora cuando la cátedra lo provee.
+Las carpetas se crean al incorporar sus archivos. Una unidad puede tener `Apuntes/`, `Presentaciones/`, `Teorico/` y `Practico/` según el material disponible. Cuando se publique un nuevo práctico, se incorpora su enunciado en la unidad correspondiente con la estructura interna definida más abajo. Si un trabajo abarca varias unidades, se ubica en la última unidad que abarca.
 
 ### Prácticos definidos por la guía
 
@@ -92,7 +90,7 @@ Si la cátedra publica un enunciado únicamente en la guía compartida, se puede
 
 `NotasDeClases/` reúne apuntes en Markdown que abarcan varias unidades. `Practico.md` conserva las notas de las clases prácticas y `Teorico.md`, las de las clases teóricas.
 
-En `Examenes/`, `Finales/` y `Resumenes/` son carpetas hermanas: la primera reserva los exámenes finales y la segunda contiene los resúmenes, separados por tipo de examen. Los ejemplos de parciales permanecen en `Parciales/Parcial<N>/Ejemplos/`.
+Los ejemplos de parciales se guardan en `Examenes/Parciales/Parcial<N>/Ejemplos/` y sus resúmenes en `Examenes/Resumenes/Parcial<N>/`. Al incorporar exámenes finales o resúmenes de final, se usan `Examenes/Finales/` y `Examenes/Resumenes/Finales/`, respectivamente.
 
 Para nombrar los ejemplos de parciales se usa la fecha del examen en formato `DD-MM-YYYY`. Si hay más de un tema del mismo parcial en la misma fecha, se agrega el sufijo correspondiente a cada archivo, por ejemplo `_TemaA` y `_TemaB`.
 
@@ -159,7 +157,7 @@ Las líneas base se identificarán con la siguiente etiqueta: `LineaBase_G12_<DD
 ### Decisiones tomadas por el Grupo
 
 * Nombres de items de configuración en UpperCamelCase. Para separación de entidades/tópico se usa guion bajo (ej: NombreLibro_NombreAutor)
-* Las carpetas de unidades y prácticos se crean cuando existe material o una actividad asignada; no se generan estructuras vacías para unidades sin prácticos.
+* Cada carpeta se crea al incorporar el primer archivo que le corresponde. Se omiten los marcadores `.keep` de la estructura versionada.
 * Si un Trabajo Práctico abarca varias unidades, se ubica en la última unidad que abarca.
 * Cada carpeta de Trabajo Práctico se identifica con su número, tema y tipo indicado en la consigna (por ejemplo, Evaluable, EvaluableRecuperatorio, NoEvaluable o Entregable).
 * Los archivos entregados de un Trabajo Práctico se nombran `TP_N<Número>_<Grupo>.<ext>`, de modo que el nombre identifique tanto el TP como el grupo, como en `TP_N4_Grupo12.pdf`.
@@ -172,10 +170,12 @@ Se mantiene un archivo `.txt` por cada clase grabada y cada archivo contiene el 
 
 ## Estructura interna de Trabajos Prácticos
 
-Los TP evaluables mantienen las carpetas `Enunciado/`, `Produccion/` y `Entrega/`, incluso si aún no contienen archivos.
+Para todos los TP, las subcarpetas se crean a medida que se incorporan sus archivos.
 
 * **`Enunciado/`** contiene la consigna y el material base del TP.
 * **`Produccion/`** contiene el material de trabajo del grupo previo a la entrega. Si el TP incluye código, se guarda en `Produccion/Codigo/`. La documentación auxiliar se guarda en `Produccion/Documentacion/` y sus recursos gráficos en `Produccion/Documentacion/Imagenes/`. Los documentos y las imágenes de esas subcarpetas siguen el patrón de nombrado del material de producción.
 * **`Entrega/`** contiene la versión final del TP entregada.
+
+Si un archivo de producción es idéntico a la versión final, se conserva la copia en `Entrega/`.
 
 La retroalimentación es opcional para todos los TP, incluidos los evaluables. La carpeta **`Retroalimentacion/`** se crea únicamente para guardar una devolución o corrección recibida de la cátedra.
